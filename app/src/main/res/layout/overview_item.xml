@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TableRow
+        android:id="@+id/tablerowResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txChronoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginStart="10dp"
+            android:text="@string/label_chrononame"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txLapnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginStart="10dp"
+            android:text="@string/label_lapnumber"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txLaptime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginStart="10dp"
+            android:text="@string/label_laptime"
+            android:textAlignment="textEnd"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txTotaltime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginStart="10dp"
+            android:text="@string/label_totaltime"
+            android:textAlignment="textEnd"
+            android:textSize="16sp" />
+    </TableRow>
+</layout>

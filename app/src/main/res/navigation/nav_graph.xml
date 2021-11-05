@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/StartupFragment">
+
+    <fragment
+        android:id="@+id/StartupFragment"
+        android:name="nl.motonono.multichronometer.startup.StartupFragment"
+        android:label="@string/startup_fragment_label"
+        tools:layout="@layout/fragment_startup">
+
+        <action
+            android:id="@+id/action_StartupFragment_to_ChronoFragment"
+            app:destination="@id/ChronoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/OverviewFragment"
+        android:name="nl.motonono.multichronometer.overview.OverviewFragment"
+        android:label="@string/chronometer_fragment_label"
+        tools:layout="@layout/fragment_overview" >
+
+        <action
+            android:id="@+id/action_OvervieFragment_to_StartupFragment"
+            app:destination="@id/StartupFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ChronoFragment"
+        android:name="nl.motonono.multichronometer.chrono.ChronoFragment">
+        <action
+            android:id="@+id/action_ChronoFragment_to_OverviewFragment"
+            app:destination="@id/OverviewFragment" />
+        <action
+            android:id="@+id/action_ChronoFragment_to_StartupFragment"
+            app:destination="@id/StartupFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,5 @@
+<resources>
+
+    <style name="Widget.Theme.MultiChronometer.MyView" parent="Theme.AppCompat.DayNight">
+    </style>
+</resources>
