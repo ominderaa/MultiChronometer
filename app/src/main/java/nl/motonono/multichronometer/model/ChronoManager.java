@@ -84,10 +84,4 @@ public class ChronoManager extends ViewModel {
         chronometers.clear();
         managerstate = ManagerState.IDLE;
     }
-
-    public void tick() {
-        for(Chronometer chronometer : chronometers ) {
-            chronometer.tick();
-        }
-    }
 }

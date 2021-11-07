@@ -210,13 +210,13 @@ public class ChronoFragment extends Fragment {
 
         public ViewHolder(View itemView, Chronometer chronometer) {
             this.mChronometer = chronometer;
-            this.mChronoName = (TextView) itemView.findViewById(R.id.txChronoName);
-            this.mLapCount = (TextView) itemView.findViewById(R.id.txLapcount);
-            this.mLastLaptime = (TextView) itemView.findViewById(R.id.txLastlap);
-            this.mTotalTime = (TextView) itemView.findViewById(R.id.txTotalTime);
-            this.mCurrentTime = (TextView) itemView.findViewById(R.id.txCurrentTime);
-            this.mStartbutton = (Button) itemView.findViewById(R.id.btnStart);
-            this.mLapbutton = (Button) itemView.findViewById(R.id.btnLap);
+            this.mChronoName = itemView.findViewById(R.id.txChronoName);
+            this.mLapCount =  itemView.findViewById(R.id.txLapcount);
+            this.mLastLaptime = itemView.findViewById(R.id.txLastlap);
+            this.mTotalTime = itemView.findViewById(R.id.txTotalTime);
+            this.mCurrentTime = itemView.findViewById(R.id.txCurrentTime);
+            this.mStartbutton = itemView.findViewById(R.id.btnStart);
+            this.mLapbutton = itemView.findViewById(R.id.btnLap);
         }
 
         public void tick() {
