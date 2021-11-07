@@ -1,12 +1,12 @@
-package nl.motonono.multichronometer;
+package nl.motonono.multichronometer.utils;
+
+import static org.junit.Assert.assertEquals;
+
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import nl.motonono.multichronometer.utils.TimeFormatter;
-
-public class TimeFormatTest {
-    @Test
+public class TimeFormatterTest extends TestCase {
     public void testTimeFormatShort() {
         assertEquals("0.00", TimeFormatter.toTextShort(0L));
         assertEquals("0.50", TimeFormatter.toTextShort(500L));

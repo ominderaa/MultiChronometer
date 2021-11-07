@@ -32,7 +32,7 @@ import nl.motonono.multichronometer.utils.TimeFormatter;
  */
 public class OverviewFragment extends Fragment {
 
-    private int[] graphcolors = {
+    private final int[] graphcolors = {
             Color.rgb(255, 0, 0),
             Color.rgb(0, 255, 0),
             Color.rgb(0, 0, 255),
@@ -54,12 +54,10 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ChronoManager chronoManager = ViewModelProviders.of(getActivity()).get(ChronoManager.class);
+        ChronoManager chronoManager = ViewModelProviders.of(requireActivity()).get(ChronoManager.class);
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
         LinearLayout layout = view.findViewById(R.id.overviewFragment);
-        GraphView graph = (GraphView) view.findViewById(R.id.graphViewResults);
-//        graph.getViewport().setYAxisBoundsManual(true);
-//        graph.getViewport().setMaxY(chronoManager.getSlowest());
+        GraphView graph = view.findViewById(R.id.graphViewResults);
 
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
@@ -80,7 +78,7 @@ public class OverviewFragment extends Fragment {
             layout.addView(chronoView);
 
             List<DataPoint> points = new ArrayList<>();
-            TableLayout table = (TableLayout) chronoView.findViewById(R.id.tableResults);
+            TableLayout table = chronoView.findViewById(R.id.tableResults);
 
             for (Long laptime : chrono.getLaptimes()) {
                 TableRow tableRow = (TableRow) inflater.inflate(R.layout.overview_item, table, false);
@@ -101,7 +99,7 @@ public class OverviewFragment extends Fragment {
                 }
 
                 table.addView(tableRow);
-                points.add(new DataPoint(Double.valueOf(lapcounter), Double.valueOf(totaltime)));
+                points.add(new DataPoint(lapcounter, totaltime));
                 lapcounter++;
             }
 
