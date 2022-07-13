@@ -13,8 +13,7 @@ public class Chronometer {
     public enum ChronoState {
         CS_IDLE,
         CS_RUNNING,
-        CS_HALTED,
-        CS_COUNTDOWN
+        CS_HALTED
     }
     private ChronoState mChronoState = ChronoState.CS_IDLE;
     private long mStartedAt;
@@ -44,10 +43,11 @@ public class Chronometer {
     }
 
     public long getCurrentTime() {
-        if(mChronoState == ChronoState.CS_RUNNING)
+        if(mChronoState == ChronoState.CS_RUNNING )
             return SystemClock.elapsedRealtime() - mStartedAt;
-        else
-            return 0L;
+        else if(mChronoState == ChronoState.CS_HALTED)
+            return mStoppedAt - mStartedAt;
+        return 0L;
     }
 
     public long getTotalTime() {
@@ -59,8 +59,6 @@ public class Chronometer {
             }
             int lastidx = mLaptimepoints.size() - 1;
             return mLaptimepoints.get(lastidx);
-        } else if(mChronoState == ChronoState.CS_COUNTDOWN) {
-            return mStartedAt - SystemClock.elapsedRealtime();
         } else if(mChronoState == ChronoState.CS_HALTED) {
             return mStoppedAt-mStartedAt;
         }
@@ -109,11 +107,6 @@ public class Chronometer {
         mChronoState = ChronoState.CS_RUNNING;
     }
 
-    public void startIn(long millis) {
-        mStartedAt = millis;
-        mChronoState = ChronoState.CS_COUNTDOWN;
-    }
-
     public void stop() {
         mChronoState = ChronoState.CS_HALTED;
         mStoppedAt = SystemClock.elapsedRealtime();
@@ -129,10 +122,4 @@ public class Chronometer {
         mStartedAt = SystemClock.elapsedRealtime();
         mLaptimepoints.clear();
     }
-
-    public void tick() {
-        if( mChronoState == ChronoState.CS_COUNTDOWN && mStartedAt < SystemClock.elapsedRealtime())
-            mChronoState = ChronoState.CS_RUNNING;
-    }
-
 }

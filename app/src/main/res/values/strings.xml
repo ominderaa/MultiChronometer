@@ -21,9 +21,9 @@
     <!-- Startup fragment -->
     <string name="label_instructions">Press Add to create more chronometers</string>
     <string name="label_startup_type">Start chronometers</string>
-    <string name="label_startup_all">all at the same time</string>
-    <string name="label_startup_one">one by one</string>
-    <string name="label_startup_timed">at intervals</string>
+    <string name="button_startup_all">Start all at the same time</string>
+    <string name="button_startup_one">Start one by one</string>
+    <string name="button_startup_timed">Start at 15 second intervals</string>
     <string name="label_press_add">Press the button below to add chronometers</string>
 
     <string name="label_chrononame">Name</string>

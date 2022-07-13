@@ -35,6 +35,15 @@ public class TimeFormatter {
         return text;
     }
 
+    public static synchronized String toTextSeconds(long timeElapsed) {
+        long timetoFormat = timeElapsed;
+        if (timeElapsed < 0) timetoFormat = -timeElapsed;
+        DecimalFormat singleDigitFormat = new DecimalFormat("0");
+
+        int seconds = Math.toIntExact((timeElapsed / 1000));
+        return singleDigitFormat.format(seconds);
+    }
+
     public static synchronized String toTextLong(long timeElapsed) {
         long timetoFormat = timeElapsed;
         if (timeElapsed < 0) timetoFormat = -timeElapsed;

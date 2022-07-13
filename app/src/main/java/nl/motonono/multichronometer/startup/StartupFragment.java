@@ -1,8 +1,6 @@
 package nl.motonono.multichronometer.startup;
 
-import static nl.motonono.multichronometer.model.ChronoManager.RunMode.ALL_AT_ONCE;
-import static nl.motonono.multichronometer.model.ChronoManager.RunMode.ONE_BY_ONE;
-import static nl.motonono.multichronometer.model.ChronoManager.RunMode.TIMED_INTERVAL;
+import static nl.motonono.multichronometer.model.ChronoManager.RunMode.*;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionInflater;
 
 import java.util.Locale;
 
@@ -27,6 +27,14 @@ public class StartupFragment extends Fragment {
 
     private FragmentStartupBinding binding;
     private StartupListAdapter startupListAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+    }
 
     @Override
     public View onCreateView(
@@ -70,14 +78,23 @@ public class StartupFragment extends Fragment {
             binding.startupViewTopLayout.requestLayout();
         });
 
-        binding.btnStart.setOnClickListener(view1 -> {
+        binding.btnStartAll.setOnClickListener(view1 -> {
             ChronoManager chronoManager14 = ViewModelProviders.of(requireActivity()).get(ChronoManager.class);
-            int selectedId=binding.rgStartType.getCheckedRadioButtonId();
-            switch( selectedId ) {
-                case R.id.rbStartAll:   chronoManager14.setRunmode(ALL_AT_ONCE); break;
-                case R.id.rbStartOne:   chronoManager14.setRunmode(ONE_BY_ONE); break;
-                case R.id.rbStartTimed: chronoManager14.setRunmode(TIMED_INTERVAL); break;
-            }
+            chronoManager14.setRunmode(ChronoManager.RunMode.ALL_AT_ONCE);
+            chronoManager14.reset();
+            NavHostFragment.findNavController(StartupFragment.this)
+                    .navigate(R.id.action_StartupFragment_to_ChronoFragment);
+        });
+        binding.btnStartOneByOne.setOnClickListener(view1 -> {
+            ChronoManager chronoManager14 = ViewModelProviders.of(requireActivity()).get(ChronoManager.class);
+            chronoManager14.setRunmode(ChronoManager.RunMode.ONE_BY_ONE);
+            chronoManager14.reset();
+            NavHostFragment.findNavController(StartupFragment.this)
+                    .navigate(R.id.action_StartupFragment_to_ChronoFragment);
+        });
+        binding.btnStartInterval.setOnClickListener(view1 -> {
+            ChronoManager chronoManager14 = ViewModelProviders.of(requireActivity()).get(ChronoManager.class);
+            chronoManager14.setRunmode(ChronoManager.RunMode.INTERVAL);
             chronoManager14.reset();
             NavHostFragment.findNavController(StartupFragment.this)
                     .navigate(R.id.action_StartupFragment_to_ChronoFragment);

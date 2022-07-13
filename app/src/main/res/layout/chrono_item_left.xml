@@ -50,10 +50,10 @@
                     android:id="@+id/txLapcount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/dotmatrix"
+                    android:fontFamily="@font/opensans"
                     android:text="Laps 00"
                     android:textAlignment="textStart"
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -65,29 +65,29 @@
                         android:id="@+id/txLastlap"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/dotmatrix"
+                        android:fontFamily="@font/opensans"
                         android:text="0:00:00.00"
                         android:textAlignment="textEnd"
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/txTotalTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/dotmatrix"
+                        android:fontFamily="@font/opensans"
                         android:text="0:00:00.00"
                         android:textAlignment="textEnd"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         android:typeface="normal" />
 
                     <TextView
                         android:id="@+id/txCurrentTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/dotmatrix"
+                        android:fontFamily="@font/opensans"
                         android:text="0:00:00.00"
                         android:textAlignment="textEnd"
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
 

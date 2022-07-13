@@ -13,7 +13,7 @@ public class ChronoManager extends ViewModel {
     public enum RunMode {
         ALL_AT_ONCE,
         ONE_BY_ONE,
-        TIMED_INTERVAL
+        INTERVAL
     }
 
     public enum ManagerState {
@@ -46,19 +46,20 @@ public class ChronoManager extends ViewModel {
                     chronometer.startAt(millis);
                 }
                 break;
-            case TIMED_INTERVAL:
-                int i = 0;
-                millis = SystemClock.elapsedRealtime();
-                for(Chronometer chronometer : chronometers ) {
-                    chronometer.startIn(millis + (i++ * 15000L));
-                }
-                break;
             case ONE_BY_ONE:
                 millis = SystemClock.elapsedRealtime();
                 for(Chronometer chronometer : chronometers ) {
                     if(chronometer.getState() == CS_IDLE) {
                         chronometer.startAt(millis);
-                        break;
+                    }
+                }
+                break;
+            case INTERVAL:
+                millis = SystemClock.elapsedRealtime();
+                for(Chronometer chronometer : chronometers ) {
+                    if(chronometer.getState() == CS_IDLE) {
+                        chronometer.startAt(millis);
+                        millis += 15000;
                     }
                 }
                 break;

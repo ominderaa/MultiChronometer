@@ -1,17 +1,23 @@
 package nl.motonono.multichronometer.chrono;
 
+import static java.lang.StrictMath.abs;
 import static nl.motonono.multichronometer.model.ChronoManager.RunMode.ONE_BY_ONE;
 import static nl.motonono.multichronometer.model.Chronometer.ChronoState.CS_IDLE;
 import static nl.motonono.multichronometer.model.Chronometer.ChronoState.CS_RUNNING;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.AndroidResources;
 import androidx.preference.PreferenceManager;
+import androidx.transition.TransitionInflater;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -50,6 +56,9 @@ public class ChronoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TransitionInflater inflater = TransitionInflater.from(requireContext());
+        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+        setExitTransition(inflater.inflateTransition(R.transition.slide_left));
     }
 
     @Override
@@ -62,47 +71,18 @@ public class ChronoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ChronoManager chronoManager = ViewModelProviders.of(requireActivity()).get(ChronoManager.class);
-
-        if(chronoManager.getManagerstate() == ChronoManager.ManagerState.IDLE ) {
-            binding.btnStop.setVisibility(View.GONE);
-
-            switch (chronoManager.getRunmode()) {
-                case ALL_AT_ONCE:
-                    binding.btnStartChrono.setVisibility(View.VISIBLE);
-                    break;
-                case TIMED_INTERVAL:
-                case ONE_BY_ONE:
-                    binding.btnStartChrono.setVisibility(View.GONE);
-                    break;
-            }
-        }
-        if(chronoManager.getManagerstate() == ChronoManager.ManagerState.RUNNING ) {
-            binding.btnStop.setVisibility(View.VISIBLE);
-            binding.btnStartChrono.setVisibility(View.GONE);
-        }
-        if(chronoManager.getManagerstate() == ChronoManager.ManagerState.HALTED ) {
-            binding.btnStop.setVisibility(View.VISIBLE);
-            binding.btnStartChrono.setVisibility(View.GONE);
-        }
+        initChronoView(chronoManager);
 
         binding.btnStartChrono.setOnClickListener(v -> {
             chronoManager.start();
             if(chronoManager.getRunmode() != ONE_BY_ONE) {
                 binding.btnStartChrono.setVisibility(View.GONE);
                 binding.btnStop.setVisibility(View.VISIBLE);
-                for(ViewHolder holder : mChronoViews) {
-                    initChronoView(chronoManager, holder);
-                }
             }
         });
 
         binding.btnStop.setOnClickListener(v -> {
             chronoManager.stop();
-            for(ViewHolder holder : mChronoViews) {
-                initChronoView(chronoManager, holder);
-            }
-            NavHostFragment.findNavController(ChronoFragment.this)
-                    .navigate(R.id.action_ChronoFragment_to_OverviewFragment);
         });
 
         binding.btnResuls.setOnClickListener(v -> NavHostFragment.findNavController(ChronoFragment.this)
@@ -123,10 +103,9 @@ public class ChronoFragment extends Fragment {
             }
             binding.chronoContainer.addView(listItem);
 
-            ViewHolder holder = new ViewHolder(listItem, chrono);
+            ViewHolder holder = new ViewHolder(listItem, chronoManager, chrono);
             mChronoViews.add(chronoNumber, holder);
             holder.mChronoName.setText(chrono.getName());
-            initChronoView(chronoManager, holder);
 
             holder.mStartbutton.setOnClickListener(v -> {
                 if (holder.mChronometer.getState() == CS_IDLE) {
@@ -158,35 +137,57 @@ public class ChronoFragment extends Fragment {
         mUpdateTimer = null;
     }
 
-    private void initChronoView(ChronoManager chronoManager, ViewHolder holder) {
-        if(chronoManager.getRunmode() == ChronoManager.RunMode.ALL_AT_ONCE ||
-                chronoManager.getRunmode() == ChronoManager.RunMode.TIMED_INTERVAL ) {
-            if (holder.mChronometer.getState() == Chronometer.ChronoState.CS_COUNTDOWN) {
-                holder.mStartbutton.setVisibility(View.GONE);
-                holder.mLapbutton.setVisibility(View.INVISIBLE);
-            } else if (holder.mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
-                holder.mStartbutton.setVisibility(View.INVISIBLE);
-                holder.mLapbutton.setVisibility(View.GONE);
-            } else if (holder.mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
-                holder.mStartbutton.setVisibility(View.GONE);
-                holder.mLapbutton.setVisibility(View.VISIBLE);
-            } else if (holder.mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
-                holder.mStartbutton.setVisibility(View.GONE);
-                holder.mLapbutton.setVisibility(View.GONE);
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mUpdateTimer != null)
+            mUpdateTimer.cancel();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mUpdateTimer != null)
+            mUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    mUpdateHandler.obtainMessage(1).sendToTarget();
+                }
+            }, 50, 100);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mUpdateTimer != null) {
+            mUpdateTimer.cancel();
+            mUpdateTimer = null;
+        }
+    }
+
+    private void initChronoView(ChronoManager chronoManager) {
+        if(chronoManager.getManagerstate() == ChronoManager.ManagerState.IDLE ) {
+            binding.btnStop.setVisibility(View.GONE);
+
+            switch (chronoManager.getRunmode()) {
+                case ALL_AT_ONCE:
+                    binding.btnStartChrono.setVisibility(View.VISIBLE);
+                    break;
+                case ONE_BY_ONE:
+                    binding.btnStartChrono.setVisibility(View.INVISIBLE);
+                    break;
+                case INTERVAL:
+                    binding.btnStartChrono.setVisibility(View.VISIBLE);
+                    break;
             }
         }
-
-        if(chronoManager.getRunmode() == ChronoManager.RunMode.ONE_BY_ONE ) {
-            if (holder.mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
-                holder.mStartbutton.setVisibility(View.VISIBLE);
-                holder.mLapbutton.setVisibility(View.GONE);
-            } else if (holder.mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
-                holder.mStartbutton.setVisibility(View.GONE);
-                holder.mLapbutton.setVisibility(View.VISIBLE);
-            } else if (holder.mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
-                holder.mStartbutton.setVisibility(View.GONE);
-                holder.mLapbutton.setVisibility(View.GONE);
-            }
+        if(chronoManager.getManagerstate() == ChronoManager.ManagerState.RUNNING ) {
+            binding.btnStartChrono.setVisibility(View.GONE);
+            binding.btnStop.setVisibility(View.VISIBLE);
+        }
+        if(chronoManager.getManagerstate() == ChronoManager.ManagerState.HALTED ) {
+            binding.btnStartChrono.setVisibility(View.GONE);
+            binding.btnStop.setVisibility(View.VISIBLE);
         }
     }
 
@@ -198,7 +199,8 @@ public class ChronoFragment extends Fragment {
         }
     };
 
-    public static class ViewHolder {
+    public  class ViewHolder {
+        public ChronoManager chronoManager;
         public Chronometer mChronometer;
         public TextView mChronoName;
         public TextView mLapCount;
@@ -208,7 +210,8 @@ public class ChronoFragment extends Fragment {
         public Button mStartbutton;
         public Button mLapbutton;
 
-        public ViewHolder(View itemView, Chronometer chronometer) {
+        public ViewHolder(View itemView, ChronoManager chronoManager, Chronometer chronometer) {
+            this.chronoManager = chronoManager;
             this.mChronometer = chronometer;
             this.mChronoName = itemView.findViewById(R.id.txChronoName);
             this.mLapCount =  itemView.findViewById(R.id.txLapcount);
@@ -220,13 +223,67 @@ public class ChronoFragment extends Fragment {
         }
 
         public void tick() {
-            mCurrentTime.setText(TimeFormatter.toTextShort(mChronometer.getCurrentTime()));
+            long currentTime = mChronometer.getCurrentTime();
+            if(currentTime < 0) {
+                mCurrentTime.setText(TimeFormatter.toTextSeconds(abs(currentTime)+1000));
+                mCurrentTime.setTextColor(Color.RED);
+            }
+            else {
+                mCurrentTime.setText(TimeFormatter.toTextShort(currentTime));
+                mCurrentTime.setTextColor(getResources().getColor(R.color.secondaryTextColor, null));
+            }
+            mLapCount.setText(String.format( Locale.getDefault(),"Laps %02d", mChronometer.getLapcount()));
+            updateHolderUI();
         }
 
         public void lap() {
             mLapCount.setText(String.format( Locale.getDefault(),"Laps %02d", mChronometer.getLapcount()));
             mLastLaptime.setText(TimeFormatter.toTextShort(mChronometer.getLastLaptime()));
-            mTotalTime.setText(TimeFormatter.toTextShort(mChronometer.getTotalTime()));
+            mTotalTime.setText(TimeFormatter.toTextShort(mChronometer.getCurrentTime()));
+        }
+
+        private void updateHolderUI() {
+            if(chronoManager.getRunmode() == ChronoManager.RunMode.ALL_AT_ONCE ) {
+                if (mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
+                    mStartbutton.setVisibility(View.INVISIBLE);
+                    mLapbutton.setVisibility(View.GONE);
+                } else if (mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
+                    mStartbutton.setVisibility(View.GONE);
+                    mLapbutton.setVisibility(View.VISIBLE);
+                } else if (mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
+                    mStartbutton.setVisibility(View.GONE);
+                    mLapbutton.setVisibility(View.GONE);
+                }
+            }
+
+            if(chronoManager.getRunmode() == ChronoManager.RunMode.ONE_BY_ONE ) {
+                if (mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
+                    mStartbutton.setVisibility(View.VISIBLE);
+                    mLapbutton.setVisibility(View.GONE);
+                } else if (mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
+                    mStartbutton.setVisibility(View.GONE);
+                    mLapbutton.setVisibility(View.VISIBLE);
+                } else if (mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
+                    mStartbutton.setVisibility(View.GONE);
+                    mLapbutton.setVisibility(View.GONE);
+                }
+            }
+
+            if(chronoManager.getRunmode() == ChronoManager.RunMode.INTERVAL ) {
+                if (mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
+                    mStartbutton.setVisibility(View.INVISIBLE);
+                    mLapbutton.setVisibility(View.GONE);
+                } else if (mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
+                    mStartbutton.setVisibility(View.GONE);
+                    if(mChronometer.getCurrentTime() > 0)
+                        mLapbutton.setVisibility(View.VISIBLE);
+                    else
+                        mLapbutton.setVisibility(View.INVISIBLE);
+                } else if (mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
+                    mStartbutton.setVisibility(View.GONE);
+                    mLapbutton.setVisibility(View.GONE);
+                }
+            }
         }
     }
 
