@@ -1,7 +1,5 @@
 package nl.motonono.multichronometer.startup;
 
-import static nl.motonono.multichronometer.model.ChronoManager.RunMode.*;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

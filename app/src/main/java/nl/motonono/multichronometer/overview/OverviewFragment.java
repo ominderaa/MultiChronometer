@@ -108,7 +108,7 @@ public class OverviewFragment extends Fragment {
             }
 
             int i = 0;
-            DataPoint data[] = new DataPoint[points.size()+1];
+            DataPoint[] data = new DataPoint[points.size()+1];
             data[i++] = new DataPoint(0,0);
             for(DataPoint p : points) { data[i++] = p; }
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(data);

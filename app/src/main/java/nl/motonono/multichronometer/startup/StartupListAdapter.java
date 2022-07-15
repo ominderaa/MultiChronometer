@@ -17,7 +17,7 @@ import nl.motonono.multichronometer.model.ChronoManager;
 
 public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.ViewHolder> {
 
-    ChronoManager chronoManager;
+    final ChronoManager chronoManager;
 
     // RecyclerView recyclerView;
     public StartupListAdapter(ChronoManager chronoManager) {
@@ -60,11 +60,10 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public TextView mEditText;
-        public ConstraintLayout constraintLayout;
-        public MyCustomEditTextListener myCustomEditTextListener;
-
+        public final ImageView imageView;
+        public final TextView mEditText;
+        public final ConstraintLayout constraintLayout;
+        public final MyCustomEditTextListener myCustomEditTextListener;
 
         public ViewHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
             super(itemView);

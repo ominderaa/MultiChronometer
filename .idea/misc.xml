@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/drawable/border.xml" value="0.3395" />
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/drawable/menubutton.xml" value="0.3395" />
+        <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/activity_main.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/chrono_item_left.xml" value="0.33" />
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/chrono_item_right.xml" value="0.5" />
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/fragment_chrono.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/fragment_startup.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/fragment_startup.xml" value="0.1" />
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/overview_chrono_item.xml" value="0.12386018237082067" />
         <entry key="..\:/Users/ominderaa/StudioProjects/MultiChronometer/app/src/main/res/layout/startup_item.xml" value="0.12386018237082067" />
         <entry key="..\:/dev/android/MultiChronometer/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2630208333333333" />
