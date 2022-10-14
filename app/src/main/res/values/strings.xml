@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">MultiChronometer</string>
     <string name="action_settings">Settings</string>
+
     <!-- Strings used for fragments for navigation -->
-    <string name="startup_fragment_label">Multi-Chrono setup</string>
-    <string name="chronometer_fragment_label">Multi-Chrono run</string>
+    <string name="welcome_fragment_label">Multi-Chrono</string>
+    <string name="startup_fragment_label">Setup chonometers</string>
+    <string name="modemenu_fragment_label">Choose run mode</string>
+    <string name="chrono_fragment_label">Chronometers</string>
+    <string name="overview_fragment_label">Times overview</string>
 
     <string name="add">Add</string>
     <string name="start">Start</string>
@@ -12,25 +16,55 @@
     <string name="reset">Reset</string>
     <string name="clear">Clear</string>
     <string name="results">Results</string>
+    <string name="ok">OK</string>
 
     <!-- Settings Activity Title -->
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="general_settings_header">Display settings</string>
+
     <string name="lefthandedui_title">Left handed UI</string>
+    <string name="lefthandedui_summary">Place buttons on the %s side of the screen</string>
+
+    <string name="intervalseconds_label">Automatic start interval</string>
+    <string name="intervalseconds_summary">Number of seconds between automatic starts</string>
+
+    <string name="timedtrial_duration_label">Timed trial duration</string>
+    <string name="timedtrial_duration_summary">Duration of time trails in minutes</string>
+
+    <!-- Welcome menu fragment -->
+    <string name="label_startup_all">All at once</string>
+    <string name="label_startup_one">One by one</string>
+    <string name="label_startup_timed">Interval start</string>
+    <string name="label_startup_timetrial">Timed trial</string>
+    <string name="text_startup_all">Start all timers the same time</string>
+    <string name="text_startup_one">Start all timers one by one manually</string>
+    <string name="text_startup_timed">Intervals</string>
+    <string name="text_startup_timetrial">Timed trial</string>
 
     <!-- Startup fragment -->
     <string name="label_instructions">Press Add to create more chronometers</string>
     <string name="label_startup_type">Start chronometers</string>
-    <string name="button_startup_all">Start all at the same time</string>
-    <string name="button_startup_one">Start one by one</string>
-    <string name="button_startup_timed">Start at 15 second intervals</string>
     <string name="label_press_add">Press the button below to add chronometers</string>
 
+    <!-- choose mode fragment -->
+    <string name="label_choose_mode">Choose mode</string>
+    <string name="button_startup_all">All at once</string>
+    <string name="button_startup_one">One by one</string>
+    <string name="button_startup_timed">At fixed interval</string>
+    <string name="button_startup_timetrial">Timed trial</string>
+
+    <!-- chronoviews -->
+    <string name="label_fragment_independent_start">Independent</string>
+    <string name="label_fragment_one_start">One start</string>
+    <string name="label_fragment_timed_start">Timed start</string>
+    <string name="label_fragment_timed_trial">Timed Trial</string>
+    <string name="label_fragment_time_trial">Time Trial</string>
+
+    <string name="timed_trial_dialog_title">Set parameters</string>
+
+    <!-- statistics overview fragment -->
     <string name="label_chrononame">Name</string>
     <string name="label_lapnumber">Lap Nr.</string>
     <string name="label_laptime">Lap time</string>
     <string name="label_totaltime">Total time</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 </resources>

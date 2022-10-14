@@ -1,11 +1,30 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/general_settings_header">
+    <SwitchPreferenceCompat
+        app:key="lefthandedui"
+        app:title="@string/lefthandedui_title"
+        app:summary="@string/lefthandedui_summary"
+        app:switchTextOn="left"
+        app:switchTextOff="right"/>
 
-        <SwitchPreferenceCompat
-            app:key="lefthandedui"
-            app:title="@string/lefthandedui_title" />
+    <SeekBarPreference
+        app:key="intervalseconds"
+        app:title="@string/intervalseconds_label"
+        app:summary="@string/intervalseconds_summary"
+        android:max="15"
+        app:min="1"
+        app:defaultValue="5"
+        app:seekBarIncrement="1"
+        app:showSeekBarValue="true"/>
 
-    </PreferenceCategory>
+    <SeekBarPreference
+        app:key="timedtrialduration"
+        app:title="@string/timedtrial_duration_label"
+        app:summary="@string/timedtrial_duration_summary"
+        android:max="30"
+        app:min="5"
+        app:defaultValue="20"
+        app:seekBarIncrement="5"
+        app:showSeekBarValue="true"/>
 
 </PreferenceScreen>

@@ -3,37 +3,80 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/StartupFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <fragment
         android:id="@+id/StartupFragment"
         android:name="nl.motonono.multichronometer.startup.StartupFragment"
         android:label="@string/startup_fragment_label"
         tools:layout="@layout/fragment_startup">
-
         <action
-            android:id="@+id/action_StartupFragment_to_ChronoFragment"
-            app:destination="@id/ChronoFragment" />
+            android:id="@+id/action_StartupFragment_to_oneStartFragment"
+            app:destination="@id/oneStartFragment" />
+        <action
+            android:id="@+id/action_StartupFragment_to_timedStartFragment"
+            app:destination="@id/timedStartFragment" />
+        <action
+            android:id="@+id/action_StartupFragment_to_independentStartFragment"
+            app:destination="@id/independentStartFragment" />
+        <action
+            android:id="@+id/action_StartupFragment_to_timeTrialFragment"
+            app:destination="@id/timeTrialFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/oneStartFragment"
+        android:name="nl.motonono.multichronometer.chrono.OneStartFragment"
+        android:label="@string/label_fragment_one_start"
+        tools:layout="@layout/fragment_one_start" >
+        <action
+            android:id="@+id/action_Navigate_to_OverviewFragment"
+            app:destination="@id/OverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timeTrialFragment"
+        android:name="nl.motonono.multichronometer.chrono.TimeTrialFragment"
+        android:label="@string/label_fragment_time_trial"
+        tools:layout="@layout/fragment_time_trial" >
+        <action
+            android:id="@+id/action_Navigate_to_OverviewFragment"
+            app:destination="@id/OverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timedStartFragment"
+        android:name="nl.motonono.multichronometer.chrono.TimedStartFragment"
+        android:label="@string/label_fragment_timed_start"
+        tools:layout="@layout/fragment_timed_start" >
+        <action
+            android:id="@+id/action_Navigate_to_OverviewFragment"
+            app:destination="@id/OverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/independentStartFragment"
+        android:name="nl.motonono.multichronometer.chrono.IndependentStartFragment"
+        android:label="@string/label_fragment_independent_start"
+        tools:layout="@layout/fragment_independent_start" >
+        <action
+            android:id="@+id/action_Navigate_to_OverviewFragment"
+            app:destination="@id/OverviewFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/OverviewFragment"
         android:name="nl.motonono.multichronometer.overview.OverviewFragment"
-        android:label="@string/chronometer_fragment_label"
+        android:label="@string/overview_fragment_label"
         tools:layout="@layout/fragment_overview" >
-
         <action
-            android:id="@+id/action_OvervieFragment_to_StartupFragment"
-            app:destination="@id/StartupFragment" />
+            android:id="@+id/action_OverviewFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/ChronoFragment"
-        android:name="nl.motonono.multichronometer.chrono.ChronoFragment">
+        android:id="@+id/welcomeFragment"
+        android:name="nl.motonono.multichronometer.WelcomeFragment"
+        android:label="@string/welcome_fragment_label"
+        tools:layout="@layout/fragment_welcome" >
         <action
-            android:id="@+id/action_ChronoFragment_to_OverviewFragment"
-            app:destination="@id/OverviewFragment" />
-        <action
-            android:id="@+id/action_ChronoFragment_to_StartupFragment"
+            android:id="@+id/action_welcomeFragment_to_StartupFragment"
             app:destination="@id/StartupFragment" />
     </fragment>
 </navigation>

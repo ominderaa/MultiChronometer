@@ -22,14 +22,13 @@
         android:layout_height="0dp"
         android:background="?android:colorBackground"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/buttonContainer"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txInstructions"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintTop_toBottomOf="@id/txInstructions" />
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
@@ -41,9 +40,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/startupSettingsContainer"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/btnAdd"
@@ -53,6 +52,7 @@
             android:layout_marginRight="3dp"
             android:layout_weight="1"
             android:text="@string/add" />
+
         <Button
             android:id="@+id/btnClear"
             android:layout_width="wrap_content"
@@ -61,6 +61,7 @@
             android:layout_marginRight="3dp"
             android:layout_weight="1"
             android:text="@string/clear" />
+
         <Button
             android:id="@+id/btnReset"
             android:layout_width="wrap_content"
@@ -76,69 +77,19 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/buttonContainer" />
+        app:layout_constraintBottom_toTopOf="@+id/btnStart" />
 
-    <LinearLayout
-        android:id="@+id/startupSettingsContainer"
+    <Button
+        android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:drawableEnd="@drawable/ic_round_arrow_forward_24"
+        android:drawableTint="@color/primaryTextColor"
+        android:insetTop="1dp"
+        android:insetBottom="1dp"
+        android:text="@string/start"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/label_startup_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnStartOneByOne"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:insetTop="1dp"
-            android:insetBottom="1dp"
-            android:text="@string/button_startup_one"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
-
-        <Button
-            android:id="@+id/btnStartAll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:insetTop="1dp"
-            android:insetBottom="1dp"
-            android:text="@string/button_startup_all"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
-
-        <Button
-            android:id="@+id/btnStartInterval"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:insetTop="1dp"
-            android:insetBottom="1dp"
-            android:text="@string/button_startup_timed"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAdd" />
-
-
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

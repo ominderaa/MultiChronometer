@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import nl.motonono.multichronometer.ChronoManager;
 import nl.motonono.multichronometer.R;
-import nl.motonono.multichronometer.model.ChronoManager;
 
 public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.ViewHolder> {
 
@@ -50,7 +50,7 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
 
         holder.imageView.setOnClickListener(v -> {
             chronoManager.getChronos().remove(holder.getBindingAdapterPosition());
-            notifyDataSetChanged();
+            notifyItemRemoved(holder.getBindingAdapterPosition());
         });
     }
 

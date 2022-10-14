@@ -36,10 +36,8 @@ public class TimeFormatter {
     }
 
     public static synchronized String toTextSeconds(long timeElapsed) {
-        long timetoFormat = timeElapsed;
-        if (timeElapsed < 0) timetoFormat = -timeElapsed;
+        long timetoFormat = Math.abs(timeElapsed);
         DecimalFormat singleDigitFormat = new DecimalFormat("0");
-
         int seconds = Math.toIntExact((timetoFormat / 1000));
         return singleDigitFormat.format(seconds);
     }

@@ -12,10 +12,19 @@ public class Chronometer {
 
     public enum ChronoState {
         CS_IDLE,
+        CS_COUNTDOWN,
         CS_RUNNING,
         CS_HALTED
     }
+
+    public enum ChronoMode {
+        CM_COUNT_UP,
+        CM_COUNT_DOWN
+    }
+
     private ChronoState mChronoState = ChronoState.CS_IDLE;
+    private ChronoMode mChronoMode = ChronoMode.CM_COUNT_UP;
+
     private long mStartedAt;
     private long mStoppedAt;
 
@@ -43,10 +52,16 @@ public class Chronometer {
     }
 
     public long getCurrentTime() {
-        if(mChronoState == ChronoState.CS_RUNNING )
-            return SystemClock.elapsedRealtime() - mStartedAt;
-        else if(mChronoState == ChronoState.CS_HALTED)
-            return mStoppedAt - mStartedAt;
+        switch(mChronoState) {
+            case CS_COUNTDOWN:
+                if(SystemClock.elapsedRealtime() - mStartedAt > 0 )
+                    mChronoState = ChronoState.CS_RUNNING;
+                // fall through
+            case CS_RUNNING:
+                return SystemClock.elapsedRealtime() - mStartedAt;
+            case CS_HALTED:
+                return mStoppedAt - mStartedAt;
+        }
         return 0L;
     }
 
@@ -73,12 +88,16 @@ public class Chronometer {
     }
 
     public ChronoState getState() {
+        if ( mChronoState == ChronoState.CS_COUNTDOWN ) {
+            if(SystemClock.elapsedRealtime() > mStartedAt )
+                mChronoState = ChronoState.CS_RUNNING;
+        }
         return mChronoState;
     }
 
     public long getLastLaptime() {
         if(mLaptimepoints.size() == 0 ) {
-            return 0;
+            return getCurrentTime();
         }
         else if(mLaptimepoints.size() == 1 ) {
             return mLaptimepoints.get(0);
@@ -104,7 +123,7 @@ public class Chronometer {
 
     public void startAt(long millis) {
         mStartedAt = millis;
-        mChronoState = ChronoState.CS_RUNNING;
+        mChronoState = millis > 0 ? ChronoState.CS_COUNTDOWN : ChronoState.CS_RUNNING;
     }
 
     public void stop() {

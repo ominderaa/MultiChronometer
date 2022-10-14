@@ -1,20 +1,16 @@
 package nl.motonono.multichronometer.chrono;
 
 import static java.lang.StrictMath.abs;
-import static nl.motonono.multichronometer.model.ChronoManager.RunMode.ONE_BY_ONE;
+import static nl.motonono.multichronometer.ChronoManager.RunMode.ONE_BY_ONE;
 import static nl.motonono.multichronometer.model.Chronometer.ChronoState.CS_IDLE;
 import static nl.motonono.multichronometer.model.Chronometer.ChronoState.CS_RUNNING;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +19,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.PreferenceManager;
 import androidx.transition.TransitionInflater;
@@ -34,63 +31,70 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import nl.motonono.multichronometer.ChronoManager;
 import nl.motonono.multichronometer.R;
-import nl.motonono.multichronometer.databinding.FragmentChronoBinding;
-import nl.motonono.multichronometer.model.ChronoManager;
+import nl.motonono.multichronometer.ParametersDialogFragment;
+import nl.motonono.multichronometer.VibrationHelper;
+import nl.motonono.multichronometer.databinding.FragmentTimedStartBinding;
 import nl.motonono.multichronometer.model.Chronometer;
 import nl.motonono.multichronometer.utils.TimeFormatter;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ChronoFragment extends Fragment {
-    FragmentChronoBinding binding;
-    List<ViewHolder> mChronoViews = new ArrayList<>();
-    Timer mUpdateTimer;
-    // get the VIBRATOR_SERVICE system service
-    Vibrator vibrator;
+public class TimedStartFragment extends Fragment {
+    FragmentTimedStartBinding mBinding;
+    private ChronoManager mViewModel;
 
-    public ChronoFragment() {
-        // Required empty public constructor
-    }
+    List<TimedStartFragment.ViewHolder> mChronoViews = new ArrayList<>();
+    Timer mUpdateTimer;
+
+    public TimedStartFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mViewModel = new ViewModelProvider(requireActivity()).get(ChronoManager.class);
+
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
         setExitTransition(inflater.inflateTransition(R.transition.slide_left));
-        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentChronoBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        mBinding = FragmentTimedStartBinding.inflate(inflater, container, false);
+
+        return mBinding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ChronoManager chronoManager = ViewModelProviders.of(requireActivity()).get(ChronoManager.class);
-        initChronoView(chronoManager);
+        initChronoView(mViewModel);
+        Button btnStop = mBinding.getRoot().findViewById(R.id.btnStopChronos);
+        Button btnStartChrono = mBinding.getRoot().findViewById(R.id.btnStartChronos);
+        Button btnResuls = mBinding.getRoot().findViewById(R.id.btnResuls);
 
-        binding.btnStartChrono.setOnClickListener(v -> {
-            chronoManager.start();
-            vibrateOnClick(vibrator);
-            if(chronoManager.getRunmode() != ONE_BY_ONE) {
-                binding.btnStartChrono.setVisibility(View.GONE);
-                binding.btnStop.setVisibility(View.VISIBLE);
+        mBinding.btnStartChronos.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                mViewModel.start();
+                VibrationHelper.getInstance().vibrateOnClick();
+                if(mViewModel.getRunmode() != ONE_BY_ONE) {
+                    btnStartChrono.setVisibility(View.GONE);
+                    btnStop.setVisibility(View.VISIBLE);
+                }
             }
         });
 
-        binding.btnStop.setOnClickListener(v -> {
-            chronoManager.stop();
-            vibrateOnClick(vibrator);
+        mBinding.btnStopChronos.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+                mViewModel.stop();
+                VibrationHelper.getInstance().vibrateOnClick();
+            }
         });
 
-        binding.btnResuls.setOnClickListener(v -> NavHostFragment.findNavController(ChronoFragment.this)
-                .navigate(R.id.action_ChronoFragment_to_OverviewFragment));
+        btnResuls.setOnClickListener(v -> NavHostFragment.findNavController(TimedStartFragment.this)
+                .navigate(R.id.action_Navigate_to_OverviewFragment));
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(requireActivity());
@@ -98,31 +102,37 @@ public class ChronoFragment extends Fragment {
         LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
 
         int chronoNumber = 0;
-        for (Chronometer chrono: chronoManager.getChronos() ) {
+        for (Chronometer chrono: mViewModel.getChronos() ) {
             View listItem;
             if(lefthanded) {
-                listItem = layoutInflater.inflate(R.layout.chrono_item_left, binding.chronoContainer, false);
+                listItem = layoutInflater.inflate(R.layout.chrono_item_left, mBinding.chronoContainer, false);
             } else {
-                listItem = layoutInflater.inflate(R.layout.chrono_item_right, binding.chronoContainer, false);
+                listItem = layoutInflater.inflate(R.layout.chrono_item_right, mBinding.chronoContainer, false);
             }
-            binding.chronoContainer.addView(listItem);
+            mBinding.chronoContainer.addView(listItem);
 
-            ViewHolder holder = new ViewHolder(listItem, chronoManager, chrono, vibrator);
+            TimedStartFragment.ViewHolder holder = new ViewHolder(listItem, mViewModel, chrono);
             mChronoViews.add(chronoNumber, holder);
             holder.mChronoName.setText(chrono.getName());
 
-            holder.mStartbutton.setOnClickListener(v -> {
-                vibrateOnClick(vibrator);
-                if (holder.mChronometer.getState() == CS_IDLE) {
-                    holder.mChronometer.startAt(SystemClock.elapsedRealtime());
+            holder.mStartbutton.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    VibrationHelper.getInstance().vibrateOnClick();
+                    if (holder.mChronometer.getState() == CS_IDLE) {
+                        holder.mChronometer.startAt(SystemClock.elapsedRealtime());
+                    }
                 }
             });
 
-            holder.mLapbutton.setOnClickListener(v -> {
-                vibrateOnClick(vibrator);
-                if (holder.mChronometer.getState() == CS_RUNNING) {
-                    holder.mChronometer.lap();
-                    holder.lap();
+            holder.mLapbutton.setOnClickListener(new OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+                    VibrationHelper.getInstance().vibrateOnClick();
+                    if (holder.mChronometer.getState() == CS_RUNNING) {
+                        holder.mChronometer.lap();
+                        holder.lap();
+                    }
                 }
             });
         }
@@ -133,25 +143,20 @@ public class ChronoFragment extends Fragment {
                 mUpdateHandler.obtainMessage(1).sendToTarget();
             }
         }, 50, 100);
-        binding.chronoContainer.requestLayout();
+        mBinding.chronoContainer.requestLayout();
+        showEditDialog();
     }
 
-    private void vibrateOnClick(Vibrator vibrator) {
-        // this type of vibration requires API 29
-        final VibrationEffect vibrationEffect2;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            // create vibrator effect with the constant EFFECT_CLICK
-            vibrationEffect2 = VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK);
-            // it is safe to cancel other vibrations currently taking place
-            vibrator.cancel();
-            vibrator.vibrate(vibrationEffect2);
-        }
+    private void showEditDialog() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        ParametersDialogFragment setparametersDialogFragment = ParametersDialogFragment.newInstance(true, false);
+        setparametersDialogFragment.show(fm, "fragment_timed_trial_parameters");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        mBinding = null;
         mUpdateTimer = null;
     }
 
@@ -184,38 +189,41 @@ public class ChronoFragment extends Fragment {
     }
 
     private void initChronoView(ChronoManager chronoManager) {
+        Button btnStop = mBinding.getRoot().findViewById(R.id.btnStopChronos);
+        Button btnStartChrono = mBinding.getRoot().findViewById(R.id.btnStartChronos);
+
         if(chronoManager.getManagerstate() == ChronoManager.ManagerState.IDLE ) {
-            binding.btnStop.setVisibility(View.GONE);
+            btnStop.setVisibility(View.GONE);
 
             switch (chronoManager.getRunmode()) {
                 case ALL_AT_ONCE:
                 case INTERVAL:
-                    binding.btnStartChrono.setVisibility(View.VISIBLE);
+                    btnStartChrono.setVisibility(View.VISIBLE);
                     break;
                 case ONE_BY_ONE:
-                    binding.btnStartChrono.setVisibility(View.INVISIBLE);
+                    btnStartChrono.setVisibility(View.INVISIBLE);
                     break;
             }
         }
         if(chronoManager.getManagerstate() == ChronoManager.ManagerState.RUNNING ) {
-            binding.btnStartChrono.setVisibility(View.GONE);
-            binding.btnStop.setVisibility(View.VISIBLE);
+            btnStartChrono.setVisibility(View.GONE);
+            btnStop.setVisibility(View.VISIBLE);
         }
         if(chronoManager.getManagerstate() == ChronoManager.ManagerState.HALTED ) {
-            binding.btnStartChrono.setVisibility(View.GONE);
-            binding.btnStop.setVisibility(View.VISIBLE);
+            btnStartChrono.setVisibility(View.GONE);
+            btnStop.setVisibility(View.VISIBLE);
         }
     }
 
     private final Handler mUpdateHandler  = new Handler(Looper.myLooper()) {
         public void handleMessage(Message msg) {
-            for(ViewHolder holder : mChronoViews) {
+            for(TimedStartFragment.ViewHolder holder : mChronoViews) {
                 holder.tick();
             }
         }
     };
 
-    public  class ViewHolder {
+    private static class ViewHolder {
         public ChronoManager chronoManager;
         public Chronometer mChronometer;
         public TextView mChronoName;
@@ -225,9 +233,8 @@ public class ChronoFragment extends Fragment {
         public TextView mCurrentTime;
         public Button mStartbutton;
         public Button mLapbutton;
-        private Vibrator vibrator;
 
-        public ViewHolder(View itemView, ChronoManager chronoManager, Chronometer chronometer, Vibrator vibrator) {
+        public ViewHolder(View itemView, ChronoManager chronoManager, Chronometer chronometer) {
             this.chronoManager = chronoManager;
             this.mChronometer = chronometer;
             this.mChronoName = itemView.findViewById(R.id.txChronoName);
@@ -237,7 +244,6 @@ public class ChronoFragment extends Fragment {
             this.mCurrentTime = itemView.findViewById(R.id.txCurrentTime);
             this.mStartbutton = itemView.findViewById(R.id.btnStart);
             this.mLapbutton = itemView.findViewById(R.id.btnLap);
-            this.vibrator = vibrator;
             updateHolderUI();
         }
 
@@ -245,13 +251,9 @@ public class ChronoFragment extends Fragment {
             long currentTime = mChronometer.getCurrentTime();
             if(currentTime < 0) {
                 mCurrentTime.setText(TimeFormatter.toTextSeconds(abs(currentTime)+1000));
-                mCurrentTime.setTextColor(Color.RED);
             }
             else {
                 mCurrentTime.setText(TimeFormatter.toTextShort(currentTime));
-                if( getContext() != null) {
-                    mCurrentTime.setTextColor(getResources().getColor(R.color.secondaryTextColor, null));
-                }
             }
             mLapCount.setText(String.format( Locale.getDefault(),"Laps %02d", mChronometer.getLapcount()));
             updateHolderUI();

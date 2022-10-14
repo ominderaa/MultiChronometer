@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.TransitionInflater;
 
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.motonono.multichronometer.R;
-import nl.motonono.multichronometer.model.ChronoManager;
+import nl.motonono.multichronometer.ChronoManager;
 import nl.motonono.multichronometer.model.Chronometer;
 import nl.motonono.multichronometer.utils.TimeFormatter;
 
@@ -32,6 +32,7 @@ import nl.motonono.multichronometer.utils.TimeFormatter;
  * A simple {@link Fragment} subclass.
  */
 public class OverviewFragment extends Fragment {
+    private ChronoManager viewModel;
 
     private final int[] graphcolors = {
             Color.rgb(255, 0, 0),
@@ -53,12 +54,12 @@ public class OverviewFragment extends Fragment {
         TransitionInflater inflater = TransitionInflater.from(requireContext());
         setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
         setExitTransition(inflater.inflateTransition(R.transition.slide_left));
+        viewModel = new ViewModelProvider(requireActivity()).get(ChronoManager.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ChronoManager chronoManager = ViewModelProviders.of(requireActivity()).get(ChronoManager.class);
         View view = inflater.inflate(R.layout.fragment_overview, container, false);
         LinearLayout layout = view.findViewById(R.id.overviewFragment);
         GraphView graph = view.findViewById(R.id.graphViewResults);
@@ -67,7 +68,7 @@ public class OverviewFragment extends Fragment {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if(isValueX) {
-                    return super.formatLabel(value, isValueX);
+                    return super.formatLabel(value, true);
                 } else {
                     return TimeFormatter.toTextShort(Double.valueOf(value).longValue());
                 }
@@ -75,7 +76,7 @@ public class OverviewFragment extends Fragment {
         });
 
         int chronoNumber = 0;
-        for (Chronometer chrono: chronoManager.getChronos() ) {
+        for (Chronometer chrono: viewModel.getChronos() ) {
             int lapcounter = 1;
             long totaltime = 0L;
             View chronoView =  inflater.inflate(R.layout.overview_chrono_item, layout, false);
