@@ -1,4 +1,4 @@
-# MultiChronometer
+# Multi Chronometer
 Keep times for multiple athletes
 
 This Android application is a simple chronometer for multiple athletes at the same time. 
