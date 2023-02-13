@@ -1,5 +1,6 @@
 package nl.motonono.multichronometer;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -23,7 +25,7 @@ public class WelcomeFragment extends Fragment {
 
     private FragmentWelcomeBinding mBinding;
     private ChronoManager mViewModel;
-    private AlphaAnimation mButtonClickAnimation = new AlphaAnimation(1F, 0.8F);
+    private final AlphaAnimation mButtonClickAnimation = new AlphaAnimation(1F, 0.8F);
 
     public WelcomeFragment() {
         // Required empty public constructor
@@ -36,7 +38,7 @@ public class WelcomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentWelcomeBinding.inflate(inflater, container, false);
@@ -63,6 +65,7 @@ public class WelcomeFragment extends Fragment {
             NavHostFragment.findNavController(WelcomeFragment.this)
                     .navigate(R.id.action_welcomeFragment_to_StartupFragment);
         });
+        addButtonEffect(mBinding.tileAllAtOnce);
         mBinding.tileOneByOne.setOnClickListener(t -> {
             view.startAnimation(mButtonClickAnimation);
             mViewModel.setRunmode(ChronoManager.RunMode.ONE_BY_ONE);
@@ -70,6 +73,7 @@ public class WelcomeFragment extends Fragment {
             NavHostFragment.findNavController(WelcomeFragment.this)
                     .navigate(R.id.action_welcomeFragment_to_StartupFragment);
         });
+        addButtonEffect(mBinding.tileOneByOne);
         mBinding.tileAtInterval.setOnClickListener(t -> {
             view.startAnimation(mButtonClickAnimation);
             mViewModel.setRunmode(ChronoManager.RunMode.INTERVAL);
@@ -77,12 +81,33 @@ public class WelcomeFragment extends Fragment {
             NavHostFragment.findNavController(WelcomeFragment.this)
                     .navigate(R.id.action_welcomeFragment_to_StartupFragment);
         });
+        addButtonEffect(mBinding.tileAtInterval);
         mBinding.tileTimedTrial.setOnClickListener(t -> {
             view.startAnimation(mButtonClickAnimation);
             mViewModel.setRunmode(ChronoManager.RunMode.TIMED_TRIAL);
             mViewModel.reset();
             NavHostFragment.findNavController(WelcomeFragment.this)
                     .navigate(R.id.action_welcomeFragment_to_StartupFragment);
+        });
+        addButtonEffect(mBinding.tileTimedTrial);
+    }
+
+    public void addButtonEffect(View button){
+        button.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    v.getBackground().setColorFilter(0xe0f47521, PorterDuff.Mode.SRC_ATOP);
+                    v.invalidate();
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                    v.getBackground().clearColorFilter();
+                    v.invalidate();
+                    v.performClick();
+                    break;
+                }
+            }
+            return false;
         });
     }
 }

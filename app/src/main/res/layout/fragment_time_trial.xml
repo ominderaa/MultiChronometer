@@ -34,9 +34,9 @@
         <GridLayout
             android:id="@+id/chronoContainer"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:horizontalSpacing="10dp"
-            android:numColumns="2"
+            android:columnCount="1"
             android:verticalSpacing="10dp">
 
         </GridLayout>

@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:background="?attr/colorPrimary"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemtileLayout"
+    android:layout_width="320dp"
+    android:layout_height="100dp"
+    android:layout_columnWeight="1"
+    android:gravity="center"
+    android:layout_gravity="fill_horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/backgroundTile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tt_tile_selector" />
 
-        <TextView
-            android:id="@+id/txLapcount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/opensans"
-            android:text="15"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="36sp" />
+    <TextView
+        android:id="@+id/txLapcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/opensans"
+        android:text="15"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txLastlap"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:fontFamily="@font/opensans"
-            android:text="0:00:00"
-            android:textAlignment="textEnd"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="36sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txLastlap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/opensans"
+        android:text="0:00:00"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?attr/colorOnPrimary"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/txChronoName"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="3dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:text="Chronograph 1"
-        android:textColor="?attr/colorOnSecondary"
-        android:background="?attr/colorSecondary"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:padding="8dp"
+        android:text="Chronograph 1"
+        android:textAlignment="center"
+        android:textColor="?attr/colorOnSecondary"
         android:textSize="22sp"
-        android:textAlignment="center"/>
-</LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txLapcount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 

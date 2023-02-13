@@ -58,9 +58,10 @@ public class StartupFragment extends Fragment {
         }
 
         mBinding.btnAdd.setOnClickListener(v -> {
-            mViewModel.getChronos().add(new Chronometer(mViewModel.getChronos().size()+1,
+            mViewModel.add(new Chronometer(mViewModel.getChronos().size()+1,
                     String.format(Locale.getDefault(), "Chronometer %d", mViewModel.getChronos().size()+1)));
             mListAdapter.notifyDataSetChanged();
+            mListAdapter.notifyItemInserted(mViewModel.getChronos().size()-1);
             mBinding.startupViewTopLayout.requestLayout();
         });
 
@@ -85,16 +86,13 @@ public class StartupFragment extends Fragment {
                             .navigate(R.id.action_StartupFragment_to_oneStartFragment);
                     break;
                 case INTERVAL:
+                case TIMED_TRIAL:
                     NavHostFragment.findNavController(StartupFragment.this)
-                            .navigate(R.id.action_StartupFragment_to_timedStartFragment);
+                            .navigate(R.id.action_StartupFragment_to_parametersFragment);
                     break;
                 case ONE_BY_ONE:
                     NavHostFragment.findNavController(StartupFragment.this)
                             .navigate(R.id.action_StartupFragment_to_independentStartFragment);
-                    break;
-                case TIMED_TRIAL:
-                    NavHostFragment.findNavController(StartupFragment.this)
-                            .navigate(R.id.action_StartupFragment_to_timeTrialFragment);
                     break;
             }
         });

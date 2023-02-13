@@ -14,20 +14,17 @@
             android:id="@+id/action_StartupFragment_to_oneStartFragment"
             app:destination="@id/oneStartFragment" />
         <action
-            android:id="@+id/action_StartupFragment_to_timedStartFragment"
-            app:destination="@id/timedStartFragment" />
-        <action
             android:id="@+id/action_StartupFragment_to_independentStartFragment"
             app:destination="@id/independentStartFragment" />
         <action
-            android:id="@+id/action_StartupFragment_to_timeTrialFragment"
-            app:destination="@id/timeTrialFragment" />
+            android:id="@+id/action_StartupFragment_to_parametersFragment"
+            app:destination="@id/parametersFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/oneStartFragment"
         android:name="nl.motonono.multichronometer.chrono.OneStartFragment"
-        android:label="@string/label_fragment_one_start"
+        android:label="@string/label_mass_start"
         tools:layout="@layout/fragment_one_start" >
         <action
             android:id="@+id/action_Navigate_to_OverviewFragment"
@@ -36,7 +33,7 @@
     <fragment
         android:id="@+id/timeTrialFragment"
         android:name="nl.motonono.multichronometer.chrono.TimeTrialFragment"
-        android:label="@string/label_fragment_time_trial"
+        android:label="@string/label_timed_trial"
         tools:layout="@layout/fragment_time_trial" >
         <action
             android:id="@+id/action_Navigate_to_OverviewFragment"
@@ -45,7 +42,7 @@
     <fragment
         android:id="@+id/timedStartFragment"
         android:name="nl.motonono.multichronometer.chrono.TimedStartFragment"
-        android:label="@string/label_fragment_timed_start"
+        android:label="@string/label_timed_start"
         tools:layout="@layout/fragment_timed_start" >
         <action
             android:id="@+id/action_Navigate_to_OverviewFragment"
@@ -54,7 +51,7 @@
     <fragment
         android:id="@+id/independentStartFragment"
         android:name="nl.motonono.multichronometer.chrono.IndependentStartFragment"
-        android:label="@string/label_fragment_independent_start"
+        android:label="@string/label_one_by_one"
         tools:layout="@layout/fragment_independent_start" >
         <action
             android:id="@+id/action_Navigate_to_OverviewFragment"
@@ -78,5 +75,16 @@
         <action
             android:id="@+id/action_welcomeFragment_to_StartupFragment"
             app:destination="@id/StartupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/parametersFragment"
+        android:name="nl.motonono.multichronometer.ParametersFragment"
+        android:label="ParametersFragment" >
+        <action
+            android:id="@+id/action_parametersFragment_to_timedStartFragment"
+            app:destination="@id/timedStartFragment" />
+        <action
+            android:id="@+id/action_parametersFragment_to_timeTrialFragment"
+            app:destination="@id/timeTrialFragment" />
     </fragment>
 </navigation>

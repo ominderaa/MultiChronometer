@@ -5,9 +5,9 @@ plugins {
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\dev\\android\\MultiChronometer\\keystore\\MultiChronometer.jks')
+            storeFile file('C:\\Users\\ominderaa\\StudioProjects\\MultiChronometer\\keystore\\MultiChronometer.jks')
             storePassword 'hqXwqAuQLmFR0asEJBHE'
-            keyAlias 'key0'
+            keyAlias 'release'
             keyPassword 'hqXwqAuQLmFR0asEJBHE'
         }
     }
@@ -27,8 +27,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {

@@ -15,6 +15,7 @@
             android:id="@+id/btnStart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
             android:text="@string/start"
             android:visibility="visible" />
 
@@ -22,12 +23,14 @@
             android:id="@+id/btnLap"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginRight="3dp"
             android:text="@string/lap"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:layout_marginStart="3dp"
             android:orientation="vertical">
 
@@ -35,6 +38,7 @@
                 android:id="@+id/txChronoName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Chronograph 1"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="20sp"
@@ -51,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans"
-                    android:text="Laps 00"
+                    android:text="L 00"
                     android:textAlignment="textStart"
                     android:textSize="20sp" />
 
@@ -66,7 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans"
-                        android:text="0:00:00.00"
+                        android:text="00.00"
                         android:textAlignment="textEnd"
                         android:textSize="20sp" />
 
@@ -75,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans"
-                        android:text="0:00:00.00"
+                        android:text="00.00"
                         android:textAlignment="textEnd"
                         android:textSize="20sp"
                         android:typeface="normal" />
@@ -85,19 +89,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans"
-                        android:text="0:00:00.00"
+                        android:text="00.00"
                         android:textAlignment="textEnd"
                         android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="?android:attr/listDivider" />
 
 </LinearLayout>

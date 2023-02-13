@@ -8,15 +8,14 @@
     android:layout_gravity="center"
     android:layout_margin="16dp"
     android:padding="8dp"
-    tools:context=".ParametersDialogFragment">
-
+    tools:context=".ParametersFragment">
     <TextView
         android:id="@+id/txTitle"
         style="@android:style/Widget.Material.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/timed_trial_dialog_title"
+        android:text="@string/label_set_parameters"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_divider_size"
         android:background="?android:attr/listDivider"
+        android:layout_marginBottom="20dp"
         android:tag="content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,9 @@
         android:id="@+id/groupDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textView2,timedTrialDurationValue,timedTrialDurationText"/>
+        app:constraint_referenced_ids="textView2,timedTrialDurationValue,timedTrialDurationText"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -69,7 +71,9 @@
         android:id="@+id/groupInterval"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textView,timedtrialStartintervalValue,timedtrialStartintervalText"/>
+        app:constraint_referenced_ids="textView,timedtrialStartintervalValue,timedtrialStartintervalText"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -100,15 +104,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timedtrialStartintervalValue" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupPredictSwimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="swPredictAthlete,textView3"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <Switch
+        android:id="@+id/swPredictAthlete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="@string/label_predictathlete"
+        android:textOff="@string/off"
+        android:textOn="@string/on"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timedtrialStartintervalValue" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/off"
+        android:paddingTop="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/swPredictAthlete"
+        app:layout_constraintTop_toBottomOf="@+id/timedtrialStartintervalValue" />
+
     <View
         android:id="@+id/div2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_divider_size"
         android:background="?android:attr/listDivider"
         android:tag="content"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timedtrialStartintervalText" />
+        app:layout_constraintTop_toBottomOf="@+id/swPredictAthlete" />
 
     <Button
         android:id="@+id/submit_button"

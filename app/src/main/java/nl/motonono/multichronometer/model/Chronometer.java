@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chronometer {
-    private int     id;
-    private String  name;
+    private int mId;
+    private String mName;
     private final List<Long> mLaptimepoints = new ArrayList<>();
 
     public enum ChronoState {
@@ -23,28 +23,42 @@ public class Chronometer {
     }
 
     private ChronoState mChronoState = ChronoState.CS_IDLE;
-    private ChronoMode mChronoMode = ChronoMode.CM_COUNT_UP;
+    private final ChronoMode mChronoMode = ChronoMode.CM_COUNT_UP;
 
     private long mStartedAt;
     private long mStoppedAt;
 
+    public interface StateChangeListener {
+        void onStateChange(Chronometer which);
+    }
+    private final List<StateChangeListener> mListeners = new ArrayList<>();
+    private void stateChanged() {
+        for(StateChangeListener l: mListeners) {
+            l.onStateChange(this);
+        }
+    }
+    public void setStateChangeListener(StateChangeListener toAdd) {
+        mListeners.add(toAdd);
+    }
+    public void removeStateChangeListener(StateChangeListener toRemove) { mListeners.remove(toRemove);  }
+
     public Chronometer(int id, String name) {
-        this.id = id;
-        this.name = name;
+        this.mId = id;
+        this.mName = name;
     }
 
     public int getId() {
-        return id;
+        return mId;
     }
     public void setId(int id) {
-        this.id = id;
+        this.mId = id;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
     public void setName(String name) {
-        this.name = name;
+        this.mName = name;
     }
 
     public int getLapcount() {
@@ -60,7 +74,7 @@ public class Chronometer {
             case CS_RUNNING:
                 return SystemClock.elapsedRealtime() - mStartedAt;
             case CS_HALTED:
-                return mStoppedAt - mStartedAt;
+                return mStoppedAt;
         }
         return 0L;
     }
@@ -75,7 +89,7 @@ public class Chronometer {
             int lastidx = mLaptimepoints.size() - 1;
             return mLaptimepoints.get(lastidx);
         } else if(mChronoState == ChronoState.CS_HALTED) {
-            return mStoppedAt-mStartedAt;
+            return mStoppedAt;
         }
         return 0L;
     }
@@ -106,6 +120,10 @@ public class Chronometer {
         return mLaptimepoints.get(lastidx) - mLaptimepoints.get(lastidx-1);
     }
 
+    public long getCurrentLaptime() {
+        return getCurrentTime() - getLastLaptime();
+    }
+
     public List<Long> getLaptimes() {
         int i= 0;
         List<Long>  laptimes = new ArrayList<>();
@@ -120,15 +138,37 @@ public class Chronometer {
         return laptimes;
     }
 
+    public long getNextlapPrediction() {
+        if(mChronoState == ChronoState.CS_RUNNING && mLaptimepoints.size() > 0) {
+            long lastLaptime = getLastLaptime();
+            long totalTime = getTotalTime();
+            long currentTime = getCurrentTime();
+            return (totalTime + lastLaptime) - currentTime;
+        }
+        return 0;
+    }
 
-    public void startAt(long millis) {
+    public void startFuture(long millis) {
         mStartedAt = millis;
-        mChronoState = millis > 0 ? ChronoState.CS_COUNTDOWN : ChronoState.CS_RUNNING;
+        mChronoState = ChronoState.CS_COUNTDOWN;
+        stateChanged();
+    }
+
+    public void startNow(long millis) {
+        mStartedAt = millis;
+        mChronoState = ChronoState.CS_RUNNING;
+        stateChanged();
     }
 
     public void stop() {
         mChronoState = ChronoState.CS_HALTED;
-        mStoppedAt = SystemClock.elapsedRealtime();
+        if(mLaptimepoints.size() > 0 ) {
+            int lastidx = mLaptimepoints.size() - 1;
+            mStoppedAt = mLaptimepoints.get(lastidx);
+        } else {
+            mStoppedAt = SystemClock.elapsedRealtime() - mStartedAt;
+        }
+        stateChanged();
     }
 
     public void lap() {
@@ -140,5 +180,13 @@ public class Chronometer {
         mChronoState = ChronoState.CS_IDLE;
         mStartedAt = SystemClock.elapsedRealtime();
         mLaptimepoints.clear();
+        stateChanged();
+    }
+
+    public void tick() {
+        if(mChronoState == ChronoState.CS_COUNTDOWN && mStartedAt <= SystemClock.elapsedRealtime()) {
+            mChronoState = ChronoState.CS_RUNNING;
+            stateChanged();
+        }
     }
 }

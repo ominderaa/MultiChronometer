@@ -9,9 +9,11 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.motonono.multichronometer.chrono.IndependentStartFragment;
 import nl.motonono.multichronometer.model.Chronometer;
 
 public class ChronoManager extends ViewModel {
+
     public enum RunMode {
         ALL_AT_ONCE,
         ONE_BY_ONE,
@@ -30,10 +32,12 @@ public class ChronoManager extends ViewModel {
     private final List<Chronometer> chronometers = new ArrayList<>();
     private int timedStartInterval = 10;    // seconds
     private int timedTrialDuration = 20;    // minutes
-    private Chronometer mChronometer = new Chronometer(0, "main");
+    private boolean predictAthlete = false;
+
+    private final Chronometer mChronometer = new Chronometer(0, "main");
 
     public ChronoManager() {
-        chronometers.add(new Chronometer(1, "Chronometer 1"));
+        add(new Chronometer(1, "Chronometer 1"));
     }
 
     public List<Chronometer> getChronos() { return chronometers; }
@@ -53,37 +57,79 @@ public class ChronoManager extends ViewModel {
         this.timedStartInterval = timedStartInterval;
     }
 
+    public boolean isPredictAthlete() { return predictAthlete; }
+    public void setPredictAthlete(boolean predictAthlete) { this.predictAthlete = predictAthlete; }
+
+    public void add(Chronometer c) {
+        c.setStateChangeListener(which -> {
+            if( which.getState() == Chronometer.ChronoState.CS_RUNNING) {
+                onStart(which);
+            }
+            if( which.getState() == Chronometer.ChronoState.CS_HALTED) {
+                onStop(which);
+            }
+        });
+        chronometers.add(c);
+    }
+
+    public interface StateChangeListener {
+        void onStateChange(ManagerState newState);
+    }
+    private final List<ChronoManager.StateChangeListener> mListeners = new ArrayList<>();
+    public void setStateChangeListener(ChronoManager.StateChangeListener toAdd) { mListeners.add(toAdd);}
+    public void removeStateChangeListener(ChronoManager.StateChangeListener toRemove) { mListeners.remove(toRemove);  }
+    private void stateChanged() {
+        for(ChronoManager.StateChangeListener l: mListeners) {
+            l.onStateChange(this.managerstate);
+        }
+    }
+
+
+    private void onStart(Chronometer which) {
+        ManagerState nextState = ManagerState.RUNNING;
+        if(nextState != managerstate) {
+            managerstate = ManagerState.RUNNING;
+            stateChanged();
+        }
+        managerstate = ManagerState.RUNNING;
+    }
+    private void onStop(Chronometer which) {
+        ManagerState nextState = ManagerState.HALTED;
+        for(Chronometer m : chronometers) {
+            if (m.getState() == Chronometer.ChronoState.CS_RUNNING) {
+                nextState = ManagerState.RUNNING;
+            }
+        }
+        if(nextState != managerstate) {
+            managerstate = nextState;
+            stateChanged();
+        }
+        managerstate = nextState;
+    }
 
     public void start() {
         long millis = SystemClock.elapsedRealtime();
-        mChronometer.startAt(millis);
+        mChronometer.startFuture(millis);
 
         switch( runmode ) {
             case ALL_AT_ONCE:
                 for(Chronometer chronometer : chronometers ) {
-                    chronometer.startAt(millis);
+                    chronometer.startNow(millis);
                 }
                 break;
             case ONE_BY_ONE:
                 for(Chronometer chronometer : chronometers ) {
                     if(chronometer.getState() == CS_IDLE) {
-                        chronometer.startAt(millis);
+                        chronometer.startNow(millis);
                     }
                 }
                 break;
             case INTERVAL:
-                for(Chronometer chronometer : chronometers ) {
-                    if(chronometer.getState() == CS_IDLE) {
-                        chronometer.startAt(millis);
-                        millis += timedStartInterval * 1000;
-                    }
-                }
-                break;
             case TIMED_TRIAL:
                 for(Chronometer chronometer : chronometers ) {
                     if(chronometer.getState() == CS_IDLE) {
-                        chronometer.startAt(millis);
-                        millis += timedStartInterval * 1000;
+                        chronometer.startFuture(millis);
+                        millis += timedStartInterval * 1000L;
                     }
                 }
                 break;

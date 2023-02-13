@@ -2,13 +2,6 @@
     <string name="app_name">MultiChronometer</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Strings used for fragments for navigation -->
-    <string name="welcome_fragment_label">Multi-Chrono</string>
-    <string name="startup_fragment_label">Setup chonometers</string>
-    <string name="modemenu_fragment_label">Choose run mode</string>
-    <string name="chrono_fragment_label">Chronometers</string>
-    <string name="overview_fragment_label">Times overview</string>
-
     <string name="add">Add</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
@@ -17,6 +10,9 @@
     <string name="clear">Clear</string>
     <string name="results">Results</string>
     <string name="ok">OK</string>
+    <string name="share">Share</string>
+    <string name="off">off</string>
+    <string name="on">on</string>
 
     <!-- Settings Activity Title -->
     <string name="title_activity_settings">SettingsActivity</string>
@@ -32,10 +28,6 @@
     <string name="timedtrial_duration_summary">Duration of time trails in minutes</string>
 
     <!-- Welcome menu fragment -->
-    <string name="label_startup_all">All at once</string>
-    <string name="label_startup_one">One by one</string>
-    <string name="label_startup_timed">Interval start</string>
-    <string name="label_startup_timetrial">Timed trial</string>
     <string name="text_startup_all">Start all timers the same time</string>
     <string name="text_startup_one">Start all timers one by one manually</string>
     <string name="text_startup_timed">Intervals</string>
@@ -50,21 +42,24 @@
     <string name="label_choose_mode">Choose mode</string>
     <string name="button_startup_all">All at once</string>
     <string name="button_startup_one">One by one</string>
-    <string name="button_startup_timed">At fixed interval</string>
+    <string name="button_startup_timed">Fixed interval</string>
     <string name="button_startup_timetrial">Timed trial</string>
 
-    <!-- chronoviews -->
-    <string name="label_fragment_independent_start">Independent</string>
-    <string name="label_fragment_one_start">One start</string>
-    <string name="label_fragment_timed_start">Timed start</string>
-    <string name="label_fragment_timed_trial">Timed Trial</string>
-    <string name="label_fragment_time_trial">Time Trial</string>
+    <!-- fragmnent labels and mode names -->
+    <string name="welcome_fragment_label">Multi-Chrono</string>
+    <string name="startup_fragment_label">Setup chonometers</string>
+    <string name="overview_fragment_label">Times overview</string>
 
-    <string name="timed_trial_dialog_title">Set parameters</string>
+    <string name="label_mass_start">Mass start</string>
+    <string name="label_one_by_one">One by one</string>
+    <string name="label_timed_start">Timed start</string>
+    <string name="label_timed_trial">Timed Trial</string>
+    <string name="label_set_parameters">Set parameters</string>
 
     <!-- statistics overview fragment -->
     <string name="label_chrononame">Name</string>
     <string name="label_lapnumber">Lap Nr.</string>
     <string name="label_laptime">Lap time</string>
     <string name="label_totaltime">Total time</string>
+    <string name="label_predictathlete">Predict next athlete</string>
 </resources>

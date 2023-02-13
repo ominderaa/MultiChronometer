@@ -10,9 +10,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/AppTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:layout_weight="2"
+        android:layout_weight="4"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
 
@@ -32,14 +32,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/audiowideregular"
                     android:text="Multi"
-                    android:textSize="60sp" />
+                    android:textSize="48sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/audiowideregular"
                     android:text="Chrono"
-                    android:textSize="60sp" />
+                    android:textSize="48sp" />
             </LinearLayout>
 
             <ImageView
@@ -47,6 +47,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:layout_weight="2"
+                android:scaleType="fitXY"
                 android:src="@drawable/multichono_logo"
                 app:layout_gravity="fill" />
         </LinearLayout>
@@ -55,26 +56,27 @@
     <LinearLayout
         android:id="@+id/tileAllAtOnce"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_margin="8dp"
         android:background="@drawable/tile_border"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
-            android:text="@string/button_startup_all"
-            android:textSize="32sp"
+            android:text="@string/label_mass_start"
+            android:textSize="28sp"
             app:fontFamily="@font/audiowideregular" />
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="2"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_all_at_once"
             app:layout_gravity="fill" />
     </LinearLayout>
@@ -82,25 +84,26 @@
     <LinearLayout
         android:id="@+id/tileOneByOne"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_margin="8dp"
         android:background="@drawable/tile_border"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
-            android:text="@string/button_startup_one"
+            android:text="@string/label_one_by_one"
             android:textSize="28sp" />
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="2"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_one_by_one"
             app:layout_gravity="fill" />
     </LinearLayout>
@@ -108,25 +111,26 @@
     <LinearLayout
         android:id="@+id/tileAtInterval"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_margin="8dp"
         android:background="@drawable/tile_border"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
-            android:text="@string/button_startup_timed"
+            android:text="@string/label_timed_start"
             android:textSize="28sp" />
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="2"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_fixed_interval"
             app:layout_gravity="fill" />
     </LinearLayout>
@@ -134,25 +138,26 @@
     <LinearLayout
         android:id="@+id/tileTimedTrial"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:layout_margin="8dp"
         android:background="@drawable/tile_border"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
-            android:text="@string/button_startup_timetrial"
+            android:text="@string/label_timed_trial"
             android:textSize="28sp" />
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="2"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_timed_trial"
             app:layout_gravity="fill" />
     </LinearLayout>
