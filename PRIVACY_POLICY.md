@@ -13,9 +13,9 @@ All data (app preferences (like theme, etc.) and alarms) created by the you (the
 ### Explanation of permissions requested in the app
 <br/>
 
-| Permission | Why it is required                                                                                                                                                                                   |
-| :---: |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `android.permission.VIBRATE` | Required to vibrate the device when an onscreen button ispressed to provide feedback without to need to look at the screen.<br/>Permission automatically granted by the system; can't be revoked by user. |
+| Permission | Why it is required                                                                                                                                                                                           |
+| :---: |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `android.permission.VIBRATE` | Required to vibrate the device when an onscreen button ispressed to provide feedback without to need to look at the screen. The permission is automatically granted by the system; can't be revoked by user. |
 
  <hr style="border:1px solid gray">
 
