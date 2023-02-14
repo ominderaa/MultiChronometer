@@ -44,9 +44,9 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.myCustomEditTextListener.updatePosition(holder.getBindingAdapterPosition());
         holder.mEditText.setText(chronoManager.getChronos().get(position).getName());
         holder.imageView.setImageResource(android.R.drawable.ic_delete);
-        holder.myCustomEditTextListener.updatePosition(holder.getBindingAdapterPosition());
 
         holder.imageView.setOnClickListener(v -> {
             chronoManager.getChronos().remove(holder.getBindingAdapterPosition());
@@ -98,7 +98,9 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            chronoManager.getChronos().get(position).setName(charSequence.toString());
+            if(chronoManager.getChronos().get(position) != null ) {
+                chronoManager.getChronos().get(position).setName(charSequence.toString());
+            }
         }
 
         @Override
