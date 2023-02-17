@@ -31,22 +31,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/audiowideregular"
-                    android:text="Multi"
+                    android:text="@string/multi"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="48sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/audiowideregular"
-                    android:text="Chrono"
+                    android:text="@string/chrono"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="48sp" />
             </LinearLayout>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:layout_weight="2"
+                android:contentDescription="@string/content_logo"
                 android:scaleType="fitXY"
                 android:src="@drawable/multichono_logo"
                 app:layout_gravity="fill" />
@@ -63,11 +66,13 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/Theme.MultiChronometer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_mass_start"
+            android:textColor="@color/primaryTextColor"
             android:textSize="28sp"
             app:fontFamily="@font/audiowideregular" />
 
@@ -78,7 +83,8 @@
             android:layout_weight="2"
             android:scaleType="fitXY"
             android:src="@drawable/ic_all_at_once"
-            app:layout_gravity="fill" />
+            app:layout_gravity="fill"
+            android:contentDescription="@string/content_startall" />
     </LinearLayout>
 
     <LinearLayout
@@ -91,11 +97,13 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/Theme.MultiChronometer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_one_by_one"
+            android:textColor="@color/primaryTextColor"
             android:textSize="28sp" />
 
         <ImageView
@@ -105,7 +113,8 @@
             android:layout_weight="2"
             android:scaleType="fitXY"
             android:src="@drawable/ic_one_by_one"
-            app:layout_gravity="fill" />
+            app:layout_gravity="fill"
+            android:contentDescription="@string/content_startindependent"/>
     </LinearLayout>
 
     <LinearLayout
@@ -118,11 +127,13 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/Theme.MultiChronometer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_timed_start"
+            android:textColor="@color/primaryTextColor"
             android:textSize="28sp" />
 
         <ImageView
@@ -132,7 +143,8 @@
             android:layout_weight="2"
             android:scaleType="fitXY"
             android:src="@drawable/ic_fixed_interval"
-            app:layout_gravity="fill" />
+            app:layout_gravity="fill"
+            android:contentDescription="@string/content_starttimed" />
     </LinearLayout>
 
     <LinearLayout
@@ -145,11 +157,13 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/Theme.MultiChronometer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_timed_trial"
+            android:textColor="@color/primaryTextColor"
             android:textSize="28sp" />
 
         <ImageView
@@ -159,6 +173,7 @@
             android:layout_weight="2"
             android:scaleType="fitXY"
             android:src="@drawable/ic_timed_trial"
+            android:contentDescription="@string/content_starttrial"
             app:layout_gravity="fill" />
     </LinearLayout>
 </LinearLayout>

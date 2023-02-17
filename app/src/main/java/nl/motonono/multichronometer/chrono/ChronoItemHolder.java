@@ -35,6 +35,10 @@ public abstract class ChronoItemHolder {
         this.mTotalTime = itemView.findViewById(R.id.txTotalTime);
         this.mStartbutton = itemView.findViewById(R.id.btnStart);
         this.mLapbutton = itemView.findViewById(R.id.btnLap);
+        String contentDesc = String.valueOf(mStartbutton.getContentDescription());
+        mStartbutton.setContentDescription(String.format(contentDesc,chronometer.getName() ));
+        contentDesc = String.valueOf(mLapbutton.getContentDescription());
+        mLapbutton.setContentDescription(String.format(contentDesc,chronometer.getName() ));
 
         mChronoName.setText(mChronometer.getName());
     }

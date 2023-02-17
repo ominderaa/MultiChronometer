@@ -22,9 +22,9 @@
                 android:id="@+id/txChronoName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Chronograph 1"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@android:color/primary_text_light"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -39,8 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/opensans"
-                    android:text="L 00"
                     android:textAlignment="textStart"
+                    android:textColor="@android:color/primary_text_light"
                     android:textSize="20sp" />
 
                 <LinearLayout
@@ -54,8 +54,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans"
-                        android:text="0.00"
                         android:textAlignment="textEnd"
+                        android:textColor="@android:color/primary_text_light"
                         android:textSize="20sp" />
 
                     <TextView
@@ -63,8 +63,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans"
-                        android:text="0.00"
                         android:textAlignment="textEnd"
+                        android:textColor="@android:color/primary_text_light"
                         android:textSize="20sp"
                         android:typeface="normal" />
 
@@ -73,8 +73,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/opensans"
-                        android:text="0.00"
                         android:textAlignment="textEnd"
+                        android:textColor="@android:color/primary_text_light"
                         android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -84,7 +84,7 @@
             android:id="@+id/btnStart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:text="@string/start"
             android:visibility="visible" />
 
@@ -92,7 +92,7 @@
             android:id="@+id/btnLap"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:text="@string/lap"
             android:visibility="visible" />
 

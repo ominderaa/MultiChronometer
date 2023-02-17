@@ -1,11 +1,12 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
+        android:layout_height="match_parent"
         app:key="lefthandedui"
-        app:title="@string/lefthandedui_title"
         app:summary="@string/lefthandedui_summary"
+        app:switchTextOff="right"
         app:switchTextOn="left"
-        app:switchTextOff="right"/>
+        app:title="@string/lefthandedui_title" />
 
     <SeekBarPreference
         app:key="intervalseconds"

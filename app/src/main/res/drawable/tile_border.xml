@@ -4,9 +4,9 @@
     <padding android:left="10dp" android:right="10dp" android:top="10dp" android:bottom="10dp"/>
     <stroke android:width="2dp" android:color="@color/secondaryColor"/>
     <gradient
-        android:startColor = "@color/primaryColor"
-        android:centerColor = "#4E858E"
-        android:endColor = "@color/primaryLightColor"
-        android:angle = "180"
+        android:startColor = "#B2CBD1"
+        android:centerColor = "#477F88"
+        android:endColor = "#0C5460"
+        android:angle = "0"
         android:type = "linear" />
 </shape>

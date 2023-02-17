@@ -23,18 +23,15 @@
                 android:id="@+id/graphViewResults"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                app:seriesType="line" />
+                app:seriesType="line"
+                android:contentDescription="@string/content_resultsGraph"/>
 
             <LinearLayout
                 android:id="@+id/overviewFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                android:orientation="vertical"
+                android:contentDescription="@string/content_resultsGrid">
             </LinearLayout>
         </LinearLayout>
 
@@ -45,9 +42,9 @@
         android:id="@+id/fabEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="false"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:contentDescription="@string/share"

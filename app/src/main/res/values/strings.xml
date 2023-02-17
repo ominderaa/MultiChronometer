@@ -62,4 +62,30 @@
     <string name="label_laptime">Lap time</string>
     <string name="label_totaltime">Total time</string>
     <string name="label_predictathlete">Predict next athlete</string>
+
+    <!-- content descriptions for usability -->
+    <string name="content_logo">Multichorono logo</string>
+    <string name="content_startall">Multichorono logo</string>
+    <string name="content_startindependent">Multichorono logo</string>
+    <string name="content_starttimed">Multichorono logo</string>
+    <string name="content_starttrial">Multichorono logo</string>
+
+    <string name="content_startuplistView">Area for adding chronometers</string>
+    <string name="content_timedTrialDurationValue">Slider to set trial duration</string>
+    <string name="content_timedtrialStartintervalValue">Slider to set start interval</string>
+    <string name="content_btnStart">Start chronometer %s</string>
+    <string name="content_btnLap">Lap chronometer %s</string>
+    <string name="content_btnStop">Stop chronometer %s</string>
+    <string name="content_btnStartAll">Start all chronometers</string>
+    <string name="content_btnStopAll">Stop all chronometers</string>
+    <string name="content_btnResults">Goto results</string>
+    <string name="content_startuplistDelete">Delete %d</string>
+    <string name="content_startuplistName">Chronometer name %d</string>
+    <string name="content_resultsGraph">Graph of the results</string>
+    <string name="content_resultsGrid">Overview of the results</string>
+    <string name="multi">Multi</string>
+    <string name="chrono">Chrono</string>
+    <string name="chronograph_1">Chronograph 1</string>
+    <string name="laps_00">L 00</string>
+    <string name="Timer_00_00">00.00</string>
 </resources>

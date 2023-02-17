@@ -45,8 +45,12 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myCustomEditTextListener.updatePosition(holder.getBindingAdapterPosition());
-        holder.mEditText.setText(chronoManager.getChronos().get(position).getName());
+        holder.mChronoName.setText(chronoManager.getChronos().get(position).getName());
         holder.imageView.setImageResource(android.R.drawable.ic_delete);
+        String contentDesc = String.valueOf(holder.imageView.getContentDescription());
+        holder.imageView.setContentDescription(String.format(contentDesc,holder.getBindingAdapterPosition() ));
+        contentDesc = String.valueOf(holder.mChronoName.getContentDescription());
+        holder.mChronoName.setContentDescription(String.format(contentDesc,holder.getBindingAdapterPosition() ));
 
         holder.imageView.setOnClickListener(v -> {
             chronoManager.getChronos().remove(holder.getBindingAdapterPosition());
@@ -61,23 +65,23 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageView imageView;
-        public final TextView mEditText;
+        public final TextView mChronoName;
         public final ConstraintLayout constraintLayout;
         public final MyCustomEditTextListener myCustomEditTextListener;
 
         public ViewHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
             super(itemView);
             this.imageView = itemView.findViewById(R.id.imageView);
-            this.mEditText = itemView.findViewById(R.id.txPersonName);
+            this.mChronoName = itemView.findViewById(R.id.txPersonName);
             this.constraintLayout = itemView.findViewById(R.id.constraintLayout);
             this.myCustomEditTextListener = myCustomEditTextListener;
         }
 
         void enableTextWatcher() {
-            mEditText.addTextChangedListener(myCustomEditTextListener);
+            mChronoName.addTextChangedListener(myCustomEditTextListener);
         }
         void disableTextWatcher() {
-            mEditText.removeTextChangedListener(myCustomEditTextListener);
+            mChronoName.removeTextChangedListener(myCustomEditTextListener);
         }
     }
 
