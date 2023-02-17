@@ -23,6 +23,8 @@ public abstract class ChronoItemHolder {
     public TextView mTotalTime;
     public Button mStartbutton;
     public Button mLapbutton;
+    public TextView mCountdown;
+
     private final Chronometer.ChronoState mLastState = Chronometer.ChronoState.CS_IDLE;
 
     protected ChronoItemHolder(View itemView,  Chronometer chronometer) {
@@ -35,11 +37,14 @@ public abstract class ChronoItemHolder {
         this.mTotalTime = itemView.findViewById(R.id.txTotalTime);
         this.mStartbutton = itemView.findViewById(R.id.btnStart);
         this.mLapbutton = itemView.findViewById(R.id.btnLap);
+        this.mCountdown = itemView.findViewById(R.id.txCountdown);
+
         String contentDesc = String.valueOf(mStartbutton.getContentDescription());
         mStartbutton.setContentDescription(String.format(contentDesc,chronometer.getName() ));
         contentDesc = String.valueOf(mLapbutton.getContentDescription());
         mLapbutton.setContentDescription(String.format(contentDesc,chronometer.getName() ));
-
+        contentDesc = String.valueOf(mCountdown.getContentDescription());
+        mCountdown.setContentDescription(String.format(contentDesc,chronometer.getName() ));
         mChronoName.setText(mChronometer.getName());
     }
 
@@ -58,7 +63,8 @@ public abstract class ChronoItemHolder {
         long currentTime = mChronometer.getCurrentTime();
         mChronometer.tick();
         if(currentTime < 0) {
-            mCurrentTime.setText(TimeFormatter.toTextSeconds(abs(currentTime)+1000));
+//            mCurrentTime.setText(TimeFormatter.toTextSeconds(0L));
+            mCountdown.setText(TimeFormatter.toTextSeconds(currentTime));
         }
         else {
             mCurrentTime.setText(TimeFormatter.toTextShort(currentTime));
@@ -66,17 +72,4 @@ public abstract class ChronoItemHolder {
         mLapCount.setText(String.format( Locale.getDefault(),"Laps %02d", mChronometer.getLapcount()));
         updateHolderUI();
     }
-
-//    {
-//        if (mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
-//            mStartbutton.setVisibility(View.INVISIBLE);
-//            mLapbutton.setVisibility(View.GONE);
-//        } else if (mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
-//            mStartbutton.setVisibility(View.GONE);
-//            mLapbutton.setVisibility(View.VISIBLE);
-//        } else if (mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
-//            mStartbutton.setVisibility(View.GONE);
-//            mLapbutton.setVisibility(View.GONE);
-//        }
-//    }
 }

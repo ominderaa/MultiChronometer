@@ -70,7 +70,7 @@ public class Chronometer {
             case CS_COUNTDOWN:
                 if(SystemClock.elapsedRealtime() - mStartedAt > 0 )
                     mChronoState = ChronoState.CS_RUNNING;
-                // fall through
+                return SystemClock.elapsedRealtime() - mStartedAt;
             case CS_RUNNING:
                 return SystemClock.elapsedRealtime() - mStartedAt;
             case CS_HALTED:

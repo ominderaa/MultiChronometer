@@ -62,6 +62,7 @@
     <string name="label_laptime">Lap time</string>
     <string name="label_totaltime">Total time</string>
     <string name="label_predictathlete">Predict next athlete</string>
+    <string name="hint_name">Fill in the name of the athlete</string>
 
     <!-- content descriptions for usability -->
     <string name="content_logo">Multichorono logo</string>
@@ -83,6 +84,7 @@
     <string name="content_startuplistName">Chronometer name %d</string>
     <string name="content_resultsGraph">Graph of the results</string>
     <string name="content_resultsGrid">Overview of the results</string>
+    <string name="content_countdown">countdown %s</string>
     <string name="multi">Multi</string>
     <string name="chrono">Chrono</string>
     <string name="chronograph_1">Chronograph 1</string>

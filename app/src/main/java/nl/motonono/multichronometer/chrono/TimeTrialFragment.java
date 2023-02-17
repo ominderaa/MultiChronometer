@@ -277,12 +277,19 @@ public class TimeTrialFragment extends Fragment {
             if (mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
                 mStartbutton.setVisibility(View.INVISIBLE);
                 mLapbutton.setVisibility(View.GONE);
+                mCountdown.setVisibility(View.GONE);
             } else if (mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
                 mStartbutton.setVisibility(View.GONE);
                 mLapbutton.setVisibility(View.VISIBLE);
+                mCountdown.setVisibility(View.GONE);
+            } else if (mChronometer.getState() == Chronometer.ChronoState.CS_COUNTDOWN) {
+                mStartbutton.setVisibility(View.GONE);
+                mLapbutton.setVisibility(View.GONE);
+                mCountdown.setVisibility(View.VISIBLE);
             } else if (mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
                 mStartbutton.setVisibility(View.GONE);
                 mLapbutton.setVisibility(View.GONE);
+                mCountdown.setVisibility(View.GONE);
             }
         }
 

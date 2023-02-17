@@ -87,7 +87,6 @@
         android:layout_height="wrap_content"
         android:minHeight="96dp"
         android:drawableEnd="@drawable/ic_round_arrow_forward_24"
-        android:drawableTint="@color/primaryTextColor"
         android:insetTop="1dp"
         android:insetBottom="1dp"
         android:text="@string/start"

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -66,14 +68,14 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageView imageView;
         public final TextView mChronoName;
-        public final ConstraintLayout constraintLayout;
+        public final LinearLayout layout;
         public final MyCustomEditTextListener myCustomEditTextListener;
 
         public ViewHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
             super(itemView);
             this.imageView = itemView.findViewById(R.id.imageView);
             this.mChronoName = itemView.findViewById(R.id.txPersonName);
-            this.constraintLayout = itemView.findViewById(R.id.constraintLayout);
+            this.layout = itemView.findViewById(R.id.constraintLayout);
             this.myCustomEditTextListener = myCustomEditTextListener;
         }
 

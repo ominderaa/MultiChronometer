@@ -32,7 +32,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/audiowideregular"
                     android:text="@string/multi"
-                    android:textColor="@color/primaryTextColor"
                     android:textSize="48sp" />
 
                 <TextView
@@ -40,7 +39,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/audiowideregular"
                     android:text="@string/chrono"
-                    android:textColor="@color/primaryTextColor"
                     android:textSize="48sp" />
             </LinearLayout>
 
@@ -72,7 +70,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_mass_start"
-            android:textColor="@color/primaryTextColor"
             android:textSize="28sp"
             app:fontFamily="@font/audiowideregular" />
 
@@ -103,7 +100,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_one_by_one"
-            android:textColor="@color/primaryTextColor"
             android:textSize="28sp" />
 
         <ImageView
@@ -133,7 +129,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_timed_start"
-            android:textColor="@color/primaryTextColor"
             android:textSize="28sp" />
 
         <ImageView
@@ -163,7 +158,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/audiowideregular"
             android:text="@string/label_timed_trial"
-            android:textColor="@color/primaryTextColor"
             android:textSize="28sp" />
 
         <ImageView
