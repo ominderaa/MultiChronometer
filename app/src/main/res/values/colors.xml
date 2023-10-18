@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#006064</color>
-    <color name="colorPrimaryDark">#5CC3C9</color>
-    <color name="colorPrimaryVariant">#00363a</color>
-    <color name="colorAccent">#ffffff</color>
-    <color name="colorPrimaryText">#5A5A5A</color>
-    <color name="colorPrimaryTextDark">#E7E7E7</color>
+    <color name="primaryColor">#1976d2</color>
+    <color name="primaryLightColor">#63a4ff</color>
+    <color name="primaryDarkColor">#004ba0</color>
+    <color name="primaryTextColor">#ffffff</color>
 
+    <color name="secondaryColor">#2196f3</color>
+    <color name="secondaryLightColor">#6ec6ff</color>
+    <color name="secondaryDarkColor">#0069c0</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="gray_200">#FFEEEEEE</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
-
-    <color name="bluegray_200">#FFB0BEC5</color>
-    <color name="bluegray_400">#FF78909C</color>
-    <color name="bluegray_600">#FF546E7A</color>
-    <color name="bluegray_800">#FF374779</color>
-
-    <color name="teal_200">#FF80CBC4</color>
-    <color name="teal_400">#FF26A69A</color>
-    <color name="teal_600">#FF00897B</color>
-    <color name="teal_800">#FF000000</color>
-    <color name="teal_900">#FF004D40</color>
-
 </resources>

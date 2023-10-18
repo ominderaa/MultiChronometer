@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,7 +46,7 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myCustomEditTextListener.updatePosition(holder.getBindingAdapterPosition());
         holder.mChronoName.setText(chronoManager.getChronos().get(position).getName());
-        holder.imageView.setImageResource(android.R.drawable.ic_delete);
+//        holder.imageView.setImageResource(android.R.drawable.ic_delete);
         String contentDesc = String.valueOf(holder.imageView.getContentDescription());
         holder.imageView.setContentDescription(String.format(contentDesc,holder.getBindingAdapterPosition() ));
         contentDesc = String.valueOf(holder.mChronoName.getContentDescription());
@@ -68,12 +66,12 @@ public class StartupListAdapter extends RecyclerView.Adapter<StartupListAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final ImageView imageView;
         public final TextView mChronoName;
-        public final LinearLayout layout;
+        public final ConstraintLayout layout;
         public final MyCustomEditTextListener myCustomEditTextListener;
 
         public ViewHolder(View itemView, MyCustomEditTextListener myCustomEditTextListener) {
             super(itemView);
-            this.imageView = itemView.findViewById(R.id.imageView);
+            this.imageView = itemView.findViewById(R.id.imgDelete);
             this.mChronoName = itemView.findViewById(R.id.txPersonName);
             this.layout = itemView.findViewById(R.id.constraintLayout);
             this.myCustomEditTextListener = myCustomEditTextListener;

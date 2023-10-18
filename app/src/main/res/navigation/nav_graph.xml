@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/parametersFragment"
         android:name="nl.motonono.multichronometer.ParametersFragment"
-        android:label="ParametersFragment" >
+        android:label="@string/parameters_fragment_label" >
         <action
             android:id="@+id/action_parametersFragment_to_timedStartFragment"
             app:destination="@id/timedStartFragment" />

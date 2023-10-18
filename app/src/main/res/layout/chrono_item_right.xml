@@ -76,7 +76,7 @@
 
         <Button
             android:id="@+id/btnStart"
-            android:layout_width="wrap_content"
+            android:layout_width="96dp"
             android:layout_height="match_parent"
             android:layout_marginStart="3dp"
             android:text="@string/start"
@@ -84,7 +84,7 @@
 
         <Button
             android:id="@+id/btnLap"
-            android:layout_width="wrap_content"
+            android:layout_width="96dp"
             android:layout_height="match_parent"
             android:layout_marginStart="3dp"
             android:text="@string/lap"
@@ -92,13 +92,12 @@
 
         <TextView
             android:id="@+id/txCountdown"
-            android:layout_width="wrap_content"
+            android:layout_width="96dp"
             android:layout_height="match_parent"
             android:contentDescription="@string/content_countdown"
             android:fontFamily="@font/opensans"
             android:gravity="center"
             android:textAlignment="center"
-            android:textColor="@color/bluegray_400"
             android:textSize="60sp"
             android:textStyle="bold"
             android:typeface="normal"

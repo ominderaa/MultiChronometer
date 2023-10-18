@@ -1,28 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeightSmall"
-    android:orientation="horizontal">
-
-
+    android:layout_height="wrap_content"
+    android:defaultFocusHighlightEnabled="true"
+    android:focusable="auto">
     <EditText
         android:id="@+id/txPersonName"
-        android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/content_startuplistName"
-        android:inputType="textPersonName"
+        android:layout_width="fill_parent"
+        android:hint="@string/name"
+        android:importantForAutofill="no"
+        android:inputType="textShortMessage|textPersonName|text"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
         android:selectAllOnFocus="true"
-        android:hint="@string/hint_name"
-        android:text="@string/label_chrononame" />
+        android:singleLine="true"
+        android:text="@string/name"
+        android:textCursorDrawable="?android:attr/textCursorDrawable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgDelete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imgDelete"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/content_startuplistDelete" />
+        android:clickable="true"
+        android:contentDescription="@string/content_startuplistDelete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:drawable/ic_input_delete" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

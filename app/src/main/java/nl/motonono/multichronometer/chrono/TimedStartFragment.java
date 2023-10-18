@@ -26,6 +26,7 @@ import androidx.transition.TransitionInflater;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -176,8 +177,8 @@ public class TimedStartFragment extends Fragment implements ChronoManager.StateC
         }
     }
 
-    private final Handler mUpdateHandler  = new Handler(Looper.myLooper()) {
-        public void handleMessage(Message msg) {
+    private final Handler mUpdateHandler  = new Handler(Objects.requireNonNull(Looper.myLooper())) {
+        public void handleMessage(@NonNull Message msg) {
             for(TimedStartFragment.ViewHolder holder : mChronoViews) {
                 holder.tick();
             }
@@ -222,12 +223,23 @@ public class TimedStartFragment extends Fragment implements ChronoManager.StateC
             if (mChronometer.getState() == Chronometer.ChronoState.CS_IDLE) {
                 mStartbutton.setVisibility(View.INVISIBLE);
                 mLapbutton.setVisibility(View.GONE);
+                mCountdown.setVisibility(View.GONE);
+                mCurrentTime.setVisibility(View.INVISIBLE);
+            } else if (mChronometer.getState() == Chronometer.ChronoState.CS_COUNTDOWN) {
+                mStartbutton.setVisibility(View.GONE);
+                mLapbutton.setVisibility(View.GONE);
+                mCountdown.setVisibility(View.VISIBLE);
+                mCurrentTime.setVisibility(View.INVISIBLE);
             } else if (mChronometer.getState() == Chronometer.ChronoState.CS_RUNNING) {
                 mStartbutton.setVisibility(View.GONE);
                 mLapbutton.setVisibility(View.VISIBLE);
+                mCountdown.setVisibility(View.GONE);
+                mCurrentTime.setVisibility(View.VISIBLE);
             } else if (mChronometer.getState() == Chronometer.ChronoState.CS_HALTED) {
                 mStartbutton.setVisibility(View.GONE);
                 mLapbutton.setVisibility(View.INVISIBLE);
+                mCountdown.setVisibility(View.GONE);
+                mCurrentTime.setVisibility(View.VISIBLE);
             }
         }
 

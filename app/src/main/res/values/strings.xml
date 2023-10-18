@@ -49,6 +49,7 @@
     <string name="welcome_fragment_label">Multi-Chrono</string>
     <string name="startup_fragment_label">Setup chonometers</string>
     <string name="overview_fragment_label">Times overview</string>
+    <string name="parameters_fragment_label">Set parameters</string>
 
     <string name="label_mass_start">Mass start</string>
     <string name="label_one_by_one">One by one</string>
@@ -90,4 +91,5 @@
     <string name="chronograph_1">Chronograph 1</string>
     <string name="laps_00">L 00</string>
     <string name="Timer_00_00">00.00</string>
+    <string name="name">Name</string>
 </resources>

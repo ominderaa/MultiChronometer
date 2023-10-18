@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,7 +48,6 @@ public class TimeTrialFragment extends Fragment {
     private ChronoManager mViewModel;
     List<ViewHolder> mChronoViews = new ArrayList<>();
     Timer mUpdateTimer;
-    Timer mPredictionTimer;
 
     public TimeTrialFragment() {
     }
@@ -142,13 +142,6 @@ public class TimeTrialFragment extends Fragment {
                 mUpdateHandler.obtainMessage(1).sendToTarget();
             }
         }, 50, 100);
-//        mPredictionTimer = new Timer();
-//        mPredictionTimer.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
-//                mPredictionHandler.obtainMessage(1).sendToTarget();
-//            }
-//        }, 50, 1000);
         mBinding.chronoContainer.requestLayout();
     }
 
@@ -221,8 +214,8 @@ public class TimeTrialFragment extends Fragment {
         }
     }
 
-    private final Handler mUpdateHandler = new Handler(Looper.myLooper()) {
-        public void handleMessage(Message msg) {
+    private final Handler mUpdateHandler = new Handler(Objects.requireNonNull(Looper.myLooper())) {
+        public void handleMessage(@NonNull Message msg) {
             long currentTime = mViewModel.getCurrentTime();
             mBinding.txCurrentTime.setText(TimeFormatter.toTextLong(currentTime));
             for (TimeTrialFragment.ViewHolder holder : mChronoViews) {
